@@ -229,7 +229,7 @@ export function githubLifecycleSupport(): ExtensionPack {
     return {
         ...metadata(),
         configure: sdm => {
-            lifecycleSupport(DefaultGitHubLifecycleOptions).configure(sdm);
+            sdm.addExtensionPacks(lifecycleSupport(DefaultGitHubLifecycleOptions));
         },
     };
 }
