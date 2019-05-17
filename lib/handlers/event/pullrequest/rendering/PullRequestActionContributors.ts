@@ -58,7 +58,7 @@ export class MergeActionContributor extends AbstractIdentifiableContribution
     public supports(node: any): boolean {
         if (node.baseBranchName) {
             const pr = node as graphql.PullRequestToPullRequestLifecycle.PullRequest;
-            return pr.state === "open" && (pr.reviews === undefined || !pr.reviews.some(r => r.state !== "approved"));
+            return pr.state === "open" && (!pr.reviews || !pr.reviews.some(r => r.state !== "approved"));
         } else {
             return false;
         }
@@ -122,9 +122,9 @@ export class MergeActionContributor extends AbstractIdentifiableContribution
                 message,
             };
         }
-        if (repo.allowMergeCommit === undefined
-            && repo.allowSquashMerge === undefined
-            && repo.allowRebaseMerge === undefined) {
+        if (!repo.allowMergeCommit
+            && !repo.allowSquashMerge
+            && !repo.allowRebaseMerge) {
             mergeMethods.merge = {
                 method: "Merge",
                 title,
