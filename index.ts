@@ -14,4 +14,7 @@
  * limitations under the License.
  */
 
-export { SeedSupport } from "./lib/seed";
+export {
+    DefaultGitHubLifecycleOptions,
+    githubLifecycleSupport,
+} from "./lib/githubLifecycleSupport";

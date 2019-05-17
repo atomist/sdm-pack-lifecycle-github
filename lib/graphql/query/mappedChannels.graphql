@@ -1,0 +1,11 @@
+query mappedChannels($teamId: ID!, $name: String!) {
+  ChatChannel(name: $name) {
+    team(id: $teamId) @required {
+      id
+    }
+    repos {
+      owner
+      name
+    }
+  }
+}
