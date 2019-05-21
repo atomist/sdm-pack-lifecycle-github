@@ -1,6 +1,7 @@
 # @atomist/sdm-pack-lifecycle-github
 
 [![npm version](https://img.shields.io/npm/v/@atomist-seeds/sdm-pack.svg)](https://www.npmjs.com/package/@atomist-seeds/sdm-pack)
+[![atomist sdm goals](https://badge.atomist.com/T29E48P34/atomist/sdm-pack-lifecycle-github/a03ff4fd-31a8-447f-953d-fd9c10f3a8b9)](https://app.atomist.com/workspace/T29E48P34)
 
 [atomist-doc]: https://docs.atomist.com/ (Atomist Documentation)
 
