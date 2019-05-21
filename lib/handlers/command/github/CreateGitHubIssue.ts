@@ -173,6 +173,7 @@ export class CreateGitHubIssue implements HandleCommand {
                         {
                             data: { Issue: [issue] as any },
                             extensions: { operationName: "CreateGitHubIssue" },
+                            secrets: [{ uri: Secrets.OrgToken, value: this.githubToken }],
                         }, ctx, { orgToken: this.githubToken });
                 } else {
                     return Success;

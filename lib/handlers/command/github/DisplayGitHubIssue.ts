@@ -100,6 +100,7 @@ export class DisplayGitHubIssue implements HandleCommand {
                     return handler({
                         data: { Issue: issues as any },
                         extensions: { operationName: "DisplayGitHubIssue" },
+                        secrets: [{ uri: Secrets.OrgToken, value: this.githubToken }],
                     }, ctx, { orgToken: this.githubToken });
                 } else {
                     // If not in Neo, let's get if from GitHub

@@ -86,6 +86,7 @@ export class DisplayGitHubPullRequest implements HandleCommand {
                     return handler({
                         data: { PullRequest: prs as any },
                         extensions: { operationName: "DisplayGitHubPullRequest" },
+                        secrets: [{ uri: Secrets.OrgToken, value: this.githubToken }],
                     }, ctx, { orgToken: this.githubToken });
                 }
                 return Success;
