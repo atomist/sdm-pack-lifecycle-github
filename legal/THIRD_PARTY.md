@@ -13,7 +13,7 @@ This page details all runtime OSS dependencies of `@atomist/sdm-pack-lifecycle-g
 |[Apache-2.0](#apache-20)|1|
 |[BSD](#bsd)|1|
 |[ISC](#isc)|2|
-|[MIT](#mit)|9|
+|[MIT](#mit)|10|
 |[WTFPL](#wtfpl)|1|
 
 #### Apache-2.0
@@ -45,6 +45,7 @@ MIT License - [http://www.opensource.org/licenses/MIT](http://www.opensource.org
 |`@octokit/rest`|`14.0.9`|Gregor Martynus|[https://github.com/octokit/rest.js](https://github.com/octokit/rest.js)|
 |`days`|`1.1.1`|Jon Schlinkert|[https://github.com/jonschlinkert/days](https://github.com/jonschlinkert/days)|
 |`debug`|`3.2.6`|TJ Holowaychuk|[https://github.com/visionmedia/debug](https://github.com/visionmedia/debug)|
+|`deepmerge`|`3.2.0`|Nick Fisher|[https://github.com/TehShrike/deepmerge](https://github.com/TehShrike/deepmerge)|
 |`is-array-buffer`|`1.0.1`|Chen Fengyuan|[https://github.com/fengyuanchen/is-array-buffer](https://github.com/fengyuanchen/is-array-buffer)|
 |`is-stream`|`1.1.0`|Sindre Sorhus|[https://github.com/sindresorhus/is-stream](https://github.com/sindresorhus/is-stream)|
 |`lodash`|`4.17.11`|John-David Dalton|[https://github.com/lodash/lodash](https://github.com/lodash/lodash)|
