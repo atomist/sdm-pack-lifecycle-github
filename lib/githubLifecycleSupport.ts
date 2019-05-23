@@ -33,7 +33,6 @@ import {
     PushToPushLifecycle,
     ReviewToReviewLifecycle,
 } from "@atomist/sdm-pack-lifecycle/lib/typings/types";
-import * as _ from "lodash";
 import { AddGitHubPullRequestAutoMergeLabels } from "./handlers/command/github/AddGitHubPullRequestAutoMergeLabels";
 import { AssignGitHubPullRequestReviewer } from "./handlers/command/github/AssignGitHubPullRequestReviewer";
 import { AssignToMeGitHubIssue } from "./handlers/command/github/AssignToMeGitHubIssue";
@@ -79,115 +78,134 @@ import * as ia from "./handlers/event/issue/rendering/IssueActionContributors";
 import * as pra from "./handlers/event/pullrequest/rendering/PullRequestActionContributors";
 import * as pa from "./handlers/event/push/rendering/PushActionContributors";
 import * as rra from "./handlers/event/review/rendering/ReviewActionContributors";
+import deepmerge = require("deepmerge");
 
-export const DefaultGitHubLifecycleOptions: LifecycleOptions = _.merge(DefaultLifecycleRenderingOptions, {
+export const DefaultGitHubLifecycleOptions: LifecycleOptions = deepmerge(DefaultLifecycleRenderingOptions, {
     branch: {
         chat: {
-            actions: (repo: BranchFields.Repo) => !repo.org.provider.private ? [
-                new RaisePrActionContributor(),
-            ] : [],
+            actions: [
+                (repo: BranchFields.Repo) => !repo.org.provider.private ? [
+                    new RaisePrActionContributor(),
+                ] : [],
+            ],
         },
     },
     comment: {
         chat: {
-            actions: (repo: IssueToIssueCommentLifecycle.Repo) => !repo.org.provider.private ? [
-                new ca.AssignActionContributor(),
-                new ca.CommentActionContributor(),
-                new ca.LabelActionContributor(),
-                new ca.ReactionActionContributor(),
-                new ca.CloseActionContributor(),
-                new ca.DetailsActionContributor(),
-            ] : [],
+            actions: [
+                (repo: IssueToIssueCommentLifecycle.Repo) => !repo.org.provider.private ? [
+                    new ca.AssignActionContributor(),
+                    new ca.CommentActionContributor(),
+                    new ca.LabelActionContributor(),
+                    new ca.ReactionActionContributor(),
+                    new ca.CloseActionContributor(),
+                    new ca.DetailsActionContributor(),
+                ] : [],
+            ],
         },
     },
     issue: {
         chat: {
-            actions: (repo: IssueFields.Repo) => !repo.org.provider.private ? [
-                new ia.CommentActionContributor(),
-                new ia.LabelActionContributor(),
-                new ia.ReactionActionContributor(),
-                new ia.AssignToMeActionContributor(),
-                new ia.AssignActionContributor(),
-                new ia.MoveActionContributor(),
-                new ia.RelatedActionContributor(),
-                new ia.ReopenActionContributor(),
-                new ia.CloseActionContributor(),
-                new ia.DisplayMoreActionContributor(),
-            ] : [],
+            actions: [
+                (repo: IssueFields.Repo) => !repo.org.provider.private ? [
+                    new ia.CommentActionContributor(),
+                    new ia.LabelActionContributor(),
+                    new ia.ReactionActionContributor(),
+                    new ia.AssignToMeActionContributor(),
+                    new ia.AssignActionContributor(),
+                    new ia.MoveActionContributor(),
+                    new ia.RelatedActionContributor(),
+                    new ia.ReopenActionContributor(),
+                    new ia.CloseActionContributor(),
+                    new ia.DisplayMoreActionContributor(),
+                ] : [],
+            ],
         },
         web: {
-            actions: (repo: IssueFields.Repo) => !repo.org.provider.private ? [
-                new CardActionContributorWrapper(new ia.CommentActionContributor()),
-                new CardActionContributorWrapper(new ia.ReactionActionContributor()),
-                new CardActionContributorWrapper(new ia.LabelActionContributor()),
-                new CardActionContributorWrapper(new ia.AssignToMeActionContributor("issue")),
-                new CardActionContributorWrapper(new ia.AssignActionContributor("issue")),
-                new CardActionContributorWrapper(new ia.CloseActionContributor()),
-                new CardActionContributorWrapper(new ia.ReopenActionContributor()),
-            ] : [],
+            actions: [
+                (repo: IssueFields.Repo) => !repo.org.provider.private ? [
+                    new CardActionContributorWrapper(new ia.CommentActionContributor()),
+                    new CardActionContributorWrapper(new ia.ReactionActionContributor()),
+                    new CardActionContributorWrapper(new ia.LabelActionContributor()),
+                    new CardActionContributorWrapper(new ia.AssignToMeActionContributor("issue")),
+                    new CardActionContributorWrapper(new ia.AssignActionContributor("issue")),
+                    new CardActionContributorWrapper(new ia.CloseActionContributor()),
+                    new CardActionContributorWrapper(new ia.ReopenActionContributor()),
+                ] : [],
+            ],
         },
     },
     pullRequest: {
         chat: {
-            actions: (repo: PullRequestFields.Repo) => !repo.org.provider.private ? [
-                new pra.MergeActionContributor(),
-                new pra.AssignReviewerActionContributor(),
-                new pra.AutoMergeActionContributor(),
-                new pra.CommentActionContributor(),
-                new pra.ThumbsUpActionContributor(),
-                new pra.ApproveActionContributor(),
-                new pra.DeleteActionContributor(),
-            ] : [],
+            actions: [
+                (repo: PullRequestFields.Repo) => !repo.org.provider.private ? [
+                    new pra.MergeActionContributor(),
+                    new pra.AssignReviewerActionContributor(),
+                    new pra.AutoMergeActionContributor(),
+                    new pra.CommentActionContributor(),
+                    new pra.ThumbsUpActionContributor(),
+                    new pra.ApproveActionContributor(),
+                    new pra.DeleteActionContributor(),
+                ] : [],
+            ],
         },
         web: {
-            actions: (repo: PullRequestFields.Repo) => !repo.org.provider.private ? [
-                new CardActionContributorWrapper(new pra.MergeActionContributor()),
-                new CardActionContributorWrapper(new pra.AssignReviewerActionContributor()),
-                new CardActionContributorWrapper(new pra.AutoMergeActionContributor()),
-                new CardActionContributorWrapper(new pra.CommentActionContributor()),
-                new CardActionContributorWrapper(new pra.ThumbsUpActionContributor()),
-                new CardActionContributorWrapper(new pra.ApproveActionContributor()),
-                new CardActionContributorWrapper(new pra.DeleteActionContributor()),
-            ] : [],
+            actions: [
+                (repo: PullRequestFields.Repo) => !repo.org.provider.private ? [
+                    new CardActionContributorWrapper(new pra.MergeActionContributor()),
+                    new CardActionContributorWrapper(new pra.AssignReviewerActionContributor()),
+                    new CardActionContributorWrapper(new pra.AutoMergeActionContributor()),
+                    new CardActionContributorWrapper(new pra.CommentActionContributor()),
+                    new CardActionContributorWrapper(new pra.ThumbsUpActionContributor()),
+                    new CardActionContributorWrapper(new pra.ApproveActionContributor()),
+                    new CardActionContributorWrapper(new pra.DeleteActionContributor()),
+                ] : [],
+            ],
         },
     },
     push: {
         chat: {
-            actions: (push: PushToPushLifecycle.Push) => !push.repo.org.provider.private ? [
-                new pa.TagPushActionContributor(),
-                new pa.TagTagActionContributor(),
-                new pa.ReleaseActionContributor(),
-                new pa.PullRequestActionContributor(),
-                new pa.ApproveGoalActionContributor(),
-                new pa.CancelGoalSetActionContributor(),
-                new pa.DisplayGoalActionContributor(),
-                new pa.ExpandAttachmentsActionContributor(),
-            ] : [
-                new pa.ApproveGoalActionContributor(),
-                new pa.CancelGoalSetActionContributor(),
-                new pa.DisplayGoalActionContributor(),
-                new pa.ExpandAttachmentsActionContributor(),
+            actions: [
+                (push: PushToPushLifecycle.Push) => !push.repo.org.provider.private ? [
+                    new pa.TagPushActionContributor(),
+                    new pa.TagTagActionContributor(),
+                    new pa.ReleaseActionContributor(),
+                    new pa.PullRequestActionContributor(),
+                    new pa.ApproveGoalActionContributor(),
+                    new pa.CancelGoalSetActionContributor(),
+                    new pa.DisplayGoalActionContributor(),
+                    new pa.ExpandAttachmentsActionContributor(),
+                ] : [
+                    new pa.ApproveGoalActionContributor(),
+                    new pa.CancelGoalSetActionContributor(),
+                    new pa.DisplayGoalActionContributor(),
+                    new pa.ExpandAttachmentsActionContributor(),
+                ],
             ],
         },
         web: {
-            actions: (push: PushToPushLifecycle.Push) => !push.repo.org.provider.private ? [
-                new CardActionContributorWrapper(new pa.TagPushActionContributor()),
-                new CardActionContributorWrapper(new pa.TagTagActionContributor()),
-                new CardActionContributorWrapper(new pa.ReleaseActionContributor()),
-                new CardActionContributorWrapper(new pa.PullRequestActionContributor()),
-                new CardActionContributorWrapper(new pa.ApproveGoalActionContributor()),
-                new CardActionContributorWrapper(new pa.CancelGoalSetActionContributor()),
-            ] : [
-                new CardActionContributorWrapper(new pa.ApproveGoalActionContributor()),
-                new CardActionContributorWrapper(new pa.CancelGoalSetActionContributor()),
+            actions: [
+                (push: PushToPushLifecycle.Push) => !push.repo.org.provider.private ? [
+                    new CardActionContributorWrapper(new pa.TagPushActionContributor()),
+                    new CardActionContributorWrapper(new pa.TagTagActionContributor()),
+                    new CardActionContributorWrapper(new pa.ReleaseActionContributor()),
+                    new CardActionContributorWrapper(new pa.PullRequestActionContributor()),
+                    new CardActionContributorWrapper(new pa.ApproveGoalActionContributor()),
+                    new CardActionContributorWrapper(new pa.CancelGoalSetActionContributor()),
+                ] : [
+                    new CardActionContributorWrapper(new pa.ApproveGoalActionContributor()),
+                    new CardActionContributorWrapper(new pa.CancelGoalSetActionContributor()),
+                ],
             ],
         },
     },
     review: {
         chat: {
-            actions: (repo: ReviewToReviewLifecycle.Repo) => !repo.org.provider.private ? [
-                new rra.CommentActionContributor(),
-            ] : [],
+            actions: [
+                (repo: ReviewToReviewLifecycle.Repo) => !repo.org.provider.private ? [
+                    new rra.CommentActionContributor(),
+                ] : [],
+            ],
         },
     },
     commands: [

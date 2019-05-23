@@ -27,6 +27,7 @@
   "types": "./index.d.ts",
   "dependencies": {
     "@octokit/rest": "^14.0.9",
+    "deepmerge": "^3.2.0",
     "format-date": "^1.0.0",
     "lodash": "^4.17.11",
     "semver": "^6.0.0"
@@ -42,7 +43,7 @@
     "@atomist/automation-client": "1.5.0-master.20190515195848",
     "@atomist/sdm": "1.5.0-master.20190516103533",
     "@atomist/sdm-core": "1.5.0-master.20190516183309",
-    "@atomist/sdm-pack-lifecycle": "0.1.0-master.20190517135217",
+    "@atomist/sdm-pack-lifecycle": "0.1.1-master.20190523110421",
     "@atomist/slack-messages": "1.1.1-master.20190217194316",
     "@types/mocha": "^5.2.6",
     "@types/power-assert": "^1.5.0",
