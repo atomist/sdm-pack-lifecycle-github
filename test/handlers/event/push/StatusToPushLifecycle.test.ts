@@ -23,6 +23,10 @@ import {
     MessageOptions,
     MutationOptions,
 } from "@atomist/automation-client";
+import {
+    InMemoryPreferenceStore,
+    InMemoryPreferenceStoreFactory,
+} from "@atomist/sdm-core/lib/internal/preferences/InMemoryPreferenceStore";
 import { statusToPushLifecycle } from "@atomist/sdm-pack-lifecycle/lib/handlers/event/push/StatusToPushLifecycle";
 import { SlackMessage } from "@atomist/slack-messages";
 import "mocha";
@@ -1105,6 +1109,15 @@ describe("StatusToPushLifecycle", () => {
     /* tslint:enable */
 
     it("render goal attachments separately per env", done => {
+
+        (global as any).__runningAutomationClient = {
+            configuration: {
+                sdm: {
+                    preferenceStoreFactory: InMemoryPreferenceStoreFactory,
+                },
+            },
+        };
+
         let messageSent = false;
         class MockMessageClient {
 
