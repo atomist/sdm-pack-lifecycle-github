@@ -40,10 +40,10 @@
     "@atomist/slack-messages": "*"
   },
   "devDependencies": {
-    "@atomist/automation-client": "1.5.0-master.20190515195848",
-    "@atomist/sdm": "1.5.0-master.20190516103533",
-    "@atomist/sdm-core": "1.5.0-master.20190516183309",
-    "@atomist/sdm-pack-lifecycle": "0.1.1-master.20190523110421",
+    "@atomist/automation-client": "1.5.0-master.20190523141559",
+    "@atomist/sdm": "1.5.0-master.20190524065739",
+    "@atomist/sdm-core": "1.5.0-master.20190524070035",
+    "@atomist/sdm-pack-lifecycle": "0.1.1-master.20190524073933",
     "@atomist/slack-messages": "1.1.1-master.20190217194316",
     "@types/mocha": "^5.2.6",
     "@types/power-assert": "^1.5.0",
