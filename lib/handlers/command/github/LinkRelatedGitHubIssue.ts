@@ -70,7 +70,7 @@ export class LinkRelatedGitHubIssue implements HandleCommand {
     @Parameter({ description: "issue number", pattern: /^.*$/ })
     public issue: number;
 
-    @Parameter({ description: "message id", required: false, displayable: false })
+    @Parameter({ required: false, displayable: false })
     public msgId: string;
 
     @MappedParameter(MappedParameters.GitHubRepository)

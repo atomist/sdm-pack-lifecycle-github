@@ -40,7 +40,7 @@ import * as types from "../../../typings/types";
 @Parameters()
 export class OwnerParameters {
 
-    @Parameter({ description: "message id", required: false, displayable: false })
+    @Parameter({ required: false, displayable: false })
     public msgId: string;
 
     @MappedParameter(MappedParameters.GitHubRepository)

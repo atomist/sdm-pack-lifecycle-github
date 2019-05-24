@@ -83,7 +83,7 @@ export class CreateGitHubTag implements HandleCommand {
     })
     public message: string = "";
 
-    @Parameter({ description: "message id", required: false, displayable: false })
+    @Parameter({ required: false, displayable: false })
     public msgId: string;
 
     @MappedParameter(MappedParameters.GitHubRepository)
