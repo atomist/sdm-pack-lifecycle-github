@@ -20,6 +20,7 @@ import {
     guid,
     HandlerContext,
     MessageOptions,
+    RequiredMessageOptions,
     SlackDestination,
 } from "@atomist/automation-client";
 import {
@@ -111,6 +112,9 @@ describe("BranchToBranchLifecycle", () => {
                 assert(sm.attachments.length === 0);
                 return Promise.resolve();
             }
+
+            public async delete(destinations: Destination | Destination[], options: RequiredMessageOptions): Promise<void> {
+            }
         }
 
         const ctx: any = {
@@ -118,7 +122,7 @@ describe("BranchToBranchLifecycle", () => {
         };
         const handler = branchToBranchLifecycle(DefaultGitHubLifecycleOptions.branch.chat).listener;
 
-        handler(JSON.parse(payload) as EventFired<any>, ctx as HandlerContext, {})
+        handler(JSON.parse(payload) as EventFired<any>, ctx as HandlerContext, {} as any)
             .then(result => {
                 assert(result.code === 0);
             })
@@ -196,11 +200,15 @@ describe("BranchToBranchLifecycle", () => {
 
     it("don't display a branch created message when lifecycle is disabled", done => {
         let messageSent = false;
+
         class MockMessageClient extends MessageClientSupport {
 
             protected doSend(msg: any, destinations: Destination[], options?: MessageOptions): Promise<any> {
                 messageSent = true;
                 return Promise.resolve();
+            }
+
+            public async delete(destinations: Destination | Destination[], options: RequiredMessageOptions): Promise<void> {
             }
         }
 
@@ -210,7 +218,7 @@ describe("BranchToBranchLifecycle", () => {
         };
         const handler = branchToBranchLifecycle(DefaultGitHubLifecycleOptions.branch.chat).listener;
 
-        handler(JSON.parse(payload1) as EventFired<any>, ctx as HandlerContext, {})
+        handler(JSON.parse(payload1) as EventFired<any>, ctx as HandlerContext, {} as any)
             .then(result => {
                 assert(!messageSent);
                 assert(result.code === 0);
@@ -287,6 +295,7 @@ describe("BranchToBranchLifecycle", () => {
 
     it("display a branch message for branch", done => {
         let messageSent = false;
+
         class MockMessageClient extends MessageClientSupport {
 
             protected doSend(msg: any, destinations: Destination[], options?: MessageOptions): Promise<any> {
@@ -300,6 +309,9 @@ describe("BranchToBranchLifecycle", () => {
                 messageSent = true;
                 return Promise.resolve();
             }
+
+            public async delete(destinations: Destination | Destination[], options: RequiredMessageOptions): Promise<void> {
+            }
         }
 
         const ctx: any = {
@@ -308,7 +320,7 @@ describe("BranchToBranchLifecycle", () => {
         };
         const handler = branchToBranchLifecycle(DefaultGitHubLifecycleOptions.branch.chat).listener;
 
-        handler(JSON.parse(payload2) as EventFired<any>, ctx as HandlerContext, {})
+        handler(JSON.parse(payload2) as EventFired<any>, ctx as HandlerContext, {} as any)
             .then(result => {
                 assert(messageSent);
                 assert(result.code === 0);
@@ -319,7 +331,7 @@ describe("BranchToBranchLifecycle", () => {
 
     /* tslint:disable */
     const payloadFailure =
-        `{"data":{"Branch":[{"id":"T0434HFDT_github.release_branch_test","pullRequests":[],"commit":null,"name":"release_branch_test","deleted":true,"repo":{"name":"test","owner":"atomisthq","defaultBranch":"master","channels":[],"org":{"chatTeam":{"preferences":[{"name":"disable_bot_owner_on_github_activity_notification","value":"true"}]},"provider":{"private":false}}},"timestamp":"2017-12-05T22:09:00.084Z"}]},"extensions":{"type":"READ_ONLY","operationName":"BranchToBranchLifecycle","team_id":"T0434HFDT","team_name":"atomisthq","correlation_id":"057f722f-7de9-4e8a-b877-8713ff1e8004"},"secrets":[{"name":"github://org_token","value":"7**************************************3"}]}`
+        `{"data":{"Branch":[{"id":"T0434HFDT_github.release_branch_test","pullRequests":[],"commit":null,"name":"release_branch_test","deleted":true,"repo":{"name":"test","owner":"atomisthq","defaultBranch":"master","channels":[],"org":{"chatTeam":{"preferences":[{"name":"disable_bot_owner_on_github_activity_notification","value":"true"}]},"provider":{"private":false}}},"timestamp":"2017-12-05T22:09:00.084Z"}]},"extensions":{"type":"READ_ONLY","operationName":"BranchToBranchLifecycle","team_id":"T0434HFDT","team_name":"atomisthq","correlation_id":"057f722f-7de9-4e8a-b877-8713ff1e8004"},"secrets":[{"name":"github://org_token","value":"7**************************************3"}]}`;
     /* tslint:enable */
 
     it("don't fail for null commit", done => {
@@ -327,6 +339,9 @@ describe("BranchToBranchLifecycle", () => {
 
             protected doSend(msg: any, destinations: Destination[], options?: MessageOptions): Promise<any> {
                 return Promise.resolve();
+            }
+
+            public async delete(destinations: Destination | Destination[], options: RequiredMessageOptions): Promise<void> {
             }
         }
 
@@ -336,7 +351,7 @@ describe("BranchToBranchLifecycle", () => {
         };
         const handler = branchToBranchLifecycle(DefaultGitHubLifecycleOptions.branch.chat).listener;
 
-        handler(JSON.parse(payloadFailure) as EventFired<any>, ctx as HandlerContext, {})
+        handler(JSON.parse(payloadFailure) as EventFired<any>, ctx as HandlerContext, {} as any)
             .then(result => {
                 assert(result.code === 0);
             })

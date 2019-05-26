@@ -133,7 +133,7 @@ describe("PushToPushLifecycle", () => {
         };
         const config = `\\"exclude\\":\\"^m.*r$\\"`;
 
-        pushToPushLifecycle(DefaultGitHubLifecycleOptions.push.chat).listener(JSON.parse(payload.replace("%%CONFIG%%", config)) as EventFired<any>, ctx as HandlerContext, {})
+        pushToPushLifecycle(DefaultGitHubLifecycleOptions.push.chat).listener(JSON.parse(payload.replace("%%CONFIG%%", config)) as EventFired<any>, ctx as HandlerContext, {} as any)
             .then(result => {
                 assert(result.code === 0);
             })
@@ -166,7 +166,7 @@ describe("PushToPushLifecycle", () => {
         };
         const config = `\\"include\\":\\"^m.*r$\\", \\"exclude\\":\\"^m.*r$\\"`;
 
-        pushToPushLifecycle(DefaultGitHubLifecycleOptions.push.chat).listener(JSON.parse(payload.replace("%%CONFIG%%", config)) as EventFired<any>, ctx as HandlerContext, {})
+        pushToPushLifecycle(DefaultGitHubLifecycleOptions.push.chat).listener(JSON.parse(payload.replace("%%CONFIG%%", config)) as EventFired<any>, ctx as HandlerContext, {} as any)
             .then(result => {
                 assert(result.code === 0);
                 assert(ctx.messageClient.counter === 1);
@@ -196,7 +196,7 @@ describe("PushToPushLifecycle", () => {
             messageClient: new MockMessageClient(),
         };
         const config = `\\"include\\":\\"^feat-.*$\\"`;
-        pushToPushLifecycle(DefaultGitHubLifecycleOptions.push.chat).listener(JSON.parse(payload.replace("%%CONFIG%%", config)) as EventFired<any>, ctx as HandlerContext, {})
+        pushToPushLifecycle(DefaultGitHubLifecycleOptions.push.chat).listener(JSON.parse(payload.replace("%%CONFIG%%", config)) as EventFired<any>, ctx as HandlerContext, {} as any)
             .then(result => {
                 assert(result.code === 0);
             })
@@ -358,7 +358,7 @@ describe("PushToPushLifecycle", () => {
             },
             messageClient: new MockMessageClient(),
         };
-        pushToPushLifecycle(DefaultGitHubLifecycleOptions.push.chat).listener(JSON.parse(payloadWithPr) as EventFired<any>, ctx as HandlerContext, {})
+        pushToPushLifecycle(DefaultGitHubLifecycleOptions.push.chat).listener(JSON.parse(payloadWithPr) as EventFired<any>, ctx as HandlerContext, {} as any)
             .then(result => {
                 assert(result.code === 0);
             })
@@ -497,7 +497,7 @@ describe("PushToPushLifecycle", () => {
             messageClient: new MockMessageClient(),
         };
 
-        pushToPushLifecycle(DefaultGitHubLifecycleOptions.push.chat).listener(JSON.parse(payloadCF) as EventFired<any>, ctx as HandlerContext, {})
+        pushToPushLifecycle(DefaultGitHubLifecycleOptions.push.chat).listener(JSON.parse(payloadCF) as EventFired<any>, ctx as HandlerContext, {} as any)
             .then(result => {
                 assert(result.code === 0);
             })

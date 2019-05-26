@@ -32,6 +32,7 @@ import {
 import { isPrAutoMergeEnabled } from "@atomist/sdm-pack-lifecycle/lib/handlers/event/pullrequest/autoMerge";
 import { Action } from "@atomist/slack-messages";
 import * as _ from "lodash";
+import { AutoRebaseOnPushLabel } from "../../../command/github/AddGitHubPullRequestAutoLabels";
 import { DefaultGitHubApiUrl } from "../../../command/github/gitHubApi";
 import * as github from "../../../command/github/gitHubApi";
 
@@ -179,8 +180,51 @@ export class AutoMergeActionContributor extends AbstractIdentifiableContribution
 
         if (context.rendererId === "pull_request") {
             buttons.push(buttonForCommand(
-                { text: "Enable Auto Merge", role: "global" },
+                { text: "Auto Merge", role: "global" },
                 "EnableGitHubPullRequestAutoMerge",
+                {
+                    repo: repo.name,
+                    owner: repo.owner,
+                    issue: pr.number,
+                }));
+        }
+
+        return Promise.resolve(buttons);
+    }
+
+    public menusFor(pr: graphql.PullRequestToPullRequestLifecycle.PullRequest,
+                    context: RendererContext): Promise<Action[]> {
+        return Promise.resolve([]);
+    }
+}
+
+export class AutoRebaseActionContributor extends AbstractIdentifiableContribution
+    implements SlackActionContributor<graphql.PullRequestToPullRequestLifecycle.PullRequest> {
+
+    constructor() {
+        super(LifecycleActionPreferences.pull_request.auto_rebase.id);
+    }
+
+    public supports(node: any): boolean {
+        if (isGenerated(node)) {
+            return false;
+        } else if (node.baseBranchName) {
+            const pr = node as graphql.PullRequestToPullRequestLifecycle.PullRequest;
+            return pr.state === "open" && !(pr.labels || []).some(l => l.name === AutoRebaseOnPushLabel);
+        } else {
+            return false;
+        }
+    }
+
+    public buttonsFor(pr: graphql.PullRequestToPullRequestLifecycle.PullRequest,
+                      context: RendererContext): Promise<Action[]> {
+        const repo = context.lifecycle.extract("repo");
+        const buttons = [];
+
+        if (context.rendererId === "pull_request") {
+            buttons.push(buttonForCommand(
+                { text: "Auto Rebase", role: "global" },
+                "EnableGitHubPullRequestAutoRebase",
                 {
                     repo: repo.name,
                     owner: repo.owner,

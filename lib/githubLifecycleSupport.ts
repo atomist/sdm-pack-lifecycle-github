@@ -33,7 +33,7 @@ import {
     PushToPushLifecycle,
     ReviewToReviewLifecycle,
 } from "@atomist/sdm-pack-lifecycle/lib/typings/types";
-import { AddGitHubPullRequestAutoMergeLabels } from "./handlers/command/github/AddGitHubPullRequestAutoMergeLabels";
+import { AddGitHubPullRequestAutoLabels } from "./handlers/command/github/AddGitHubPullRequestAutoLabels";
 import { AssignGitHubPullRequestReviewer } from "./handlers/command/github/AssignGitHubPullRequestReviewer";
 import { AssignToMeGitHubIssue } from "./handlers/command/github/AssignToMeGitHubIssue";
 import { CloseGitHubIssue } from "./handlers/command/github/CloseGitHubIssue";
@@ -53,6 +53,7 @@ import { DeleteGitHubBranch } from "./handlers/command/github/DeleteGitHubBranch
 import { DisplayGitHubIssue } from "./handlers/command/github/DisplayGitHubIssue";
 import { DisplayGitHubPullRequest } from "./handlers/command/github/DisplayGitHubPullRequest";
 import { EnableGitHubPullRequestAutoMerge } from "./handlers/command/github/EnableGitHubPullRequestAutoMerge";
+import { EnableGitHubPullRequestAutoRebase } from "./handlers/command/github/EnableGitHubPullRequestAutoRebase";
 import {
     LinkRelatedGitHubIssue,
     linkRelatedGitHubIssueTargetIssueSelection,
@@ -142,6 +143,7 @@ export const DefaultGitHubLifecycleOptions: LifecycleOptions = deepmerge(Default
                     new pra.MergeActionContributor(),
                     new pra.AssignReviewerActionContributor(),
                     new pra.AutoMergeActionContributor(),
+                    new pra.AutoRebaseActionContributor(),
                     new pra.CommentActionContributor(),
                     new pra.ThumbsUpActionContributor(),
                     new pra.ApproveActionContributor(),
@@ -155,6 +157,7 @@ export const DefaultGitHubLifecycleOptions: LifecycleOptions = deepmerge(Default
                     new CardActionContributorWrapper(new pra.MergeActionContributor()),
                     new CardActionContributorWrapper(new pra.AssignReviewerActionContributor()),
                     new CardActionContributorWrapper(new pra.AutoMergeActionContributor()),
+                    new CardActionContributorWrapper(new pra.AutoRebaseActionContributor()),
                     new CardActionContributorWrapper(new pra.CommentActionContributor()),
                     new CardActionContributorWrapper(new pra.ThumbsUpActionContributor()),
                     new CardActionContributorWrapper(new pra.ApproveActionContributor()),
@@ -209,7 +212,7 @@ export const DefaultGitHubLifecycleOptions: LifecycleOptions = deepmerge(Default
         },
     },
     commands: [
-        adaptHandleCommand(AddGitHubPullRequestAutoMergeLabels),
+        adaptHandleCommand(AddGitHubPullRequestAutoLabels),
         adaptHandleCommand(AssignGitHubPullRequestReviewer),
         adaptHandleCommand(AssignToMeGitHubIssue),
         adaptHandleCommand(CloseGitHubIssue),
@@ -225,6 +228,7 @@ export const DefaultGitHubLifecycleOptions: LifecycleOptions = deepmerge(Default
         adaptHandleCommand(DisplayGitHubIssue),
         adaptHandleCommand(DisplayGitHubPullRequest),
         adaptHandleCommand(EnableGitHubPullRequestAutoMerge),
+        adaptHandleCommand(EnableGitHubPullRequestAutoRebase),
         adaptHandleCommand(LinkRelatedGitHubIssue),
         adaptHandleCommand(linkRelatedGitHubIssueTargetOwnerSelection),
         adaptHandleCommand(linkRelatedGitHubIssueTargetRepoSelection),

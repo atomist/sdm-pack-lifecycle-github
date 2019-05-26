@@ -23,10 +23,7 @@ import {
     MessageOptions,
     MutationOptions,
 } from "@atomist/automation-client";
-import {
-    InMemoryPreferenceStore,
-    InMemoryPreferenceStoreFactory,
-} from "@atomist/sdm-core/lib/internal/preferences/InMemoryPreferenceStore";
+import { InMemoryPreferenceStoreFactory } from "@atomist/sdm-core/lib/internal/preferences/InMemoryPreferenceStore";
 import { statusToPushLifecycle } from "@atomist/sdm-pack-lifecycle/lib/handlers/event/push/StatusToPushLifecycle";
 import { SlackMessage } from "@atomist/slack-messages";
 import "mocha";
@@ -146,6 +143,7 @@ describe("StatusToPushLifecycle", () => {
 
     it("render Raise PR button for successful build", done => {
         let messageSent = false;
+
         class MockMessageClient {
 
             public send(msg: any, destinations: Destination, options?: MessageOptions): Promise<any> {
@@ -225,7 +223,7 @@ describe("StatusToPushLifecycle", () => {
             graphClient: new MockGraphClient(),
             messageClient: new MockMessageClient(),
         };
-        statusToPushLifecycle(DefaultGitHubLifecycleOptions.push.chat).listener(JSON.parse(payloadRaisePr) as EventFired<any>, ctx as any as HandlerContext, {})
+        statusToPushLifecycle(DefaultGitHubLifecycleOptions.push.chat).listener(JSON.parse(payloadRaisePr) as EventFired<any>, ctx as any as HandlerContext, {} as any)
             .then(result => {
                 assert(messageSent);
                 assert(result.code === 0);
@@ -305,6 +303,7 @@ describe("StatusToPushLifecycle", () => {
     /* tslint:enable */
     it("don't render message of empty channel", done => {
         const messageSent = false;
+
         class MockMessageClient {
 
             public send(msg: any, destinations: Destination, options?: MessageOptions): Promise<any> {
@@ -378,7 +377,7 @@ describe("StatusToPushLifecycle", () => {
             graphClient: new MockGraphClient(),
             messageClient: new MockMessageClient(),
         };
-        statusToPushLifecycle(DefaultGitHubLifecycleOptions.push.chat).listener(JSON.parse(payloadNoChannel) as EventFired<any>, ctx as any as HandlerContext, {})
+        statusToPushLifecycle(DefaultGitHubLifecycleOptions.push.chat).listener(JSON.parse(payloadNoChannel) as EventFired<any>, ctx as any as HandlerContext, {} as any)
             .then(result => {
                 assert(!messageSent);
                 assert(result.code === 0);
@@ -502,6 +501,7 @@ describe("StatusToPushLifecycle", () => {
 
     it("don't render Raise PR button for successful build when button is disabled", done => {
         let messageSent = false;
+
         class MockMessageClient {
 
             public send(msg: any, destinations: Destination, options?: MessageOptions): Promise<any> {
@@ -578,7 +578,7 @@ describe("StatusToPushLifecycle", () => {
             messageClient: new MockMessageClient(),
         };
 
-        statusToPushLifecycle(DefaultGitHubLifecycleOptions.push.chat).listener(JSON.parse(payloadNoRaisePr) as EventFired<any>, ctx as any as HandlerContext, {})
+        statusToPushLifecycle(DefaultGitHubLifecycleOptions.push.chat).listener(JSON.parse(payloadNoRaisePr) as EventFired<any>, ctx as any as HandlerContext, {} as any)
             .then(result => {
                 assert(messageSent);
                 assert(result.code === 0);
@@ -1119,6 +1119,7 @@ describe("StatusToPushLifecycle", () => {
         };
 
         let messageSent = false;
+
         class MockMessageClient {
 
             public send(msg: any, destinations: Destination, options?: MessageOptions): Promise<any> {
@@ -1176,7 +1177,7 @@ describe("StatusToPushLifecycle", () => {
             graphClient: new MockGraphClient(),
             messageClient: new MockMessageClient(),
         };
-        statusToPushLifecycle(DefaultGitHubLifecycleOptions.push.chat).listener(JSON.parse(payloadWithGoals) as EventFired<any>, ctx as any as HandlerContext, {})
+        statusToPushLifecycle(DefaultGitHubLifecycleOptions.push.chat).listener(JSON.parse(payloadWithGoals) as EventFired<any>, ctx as any as HandlerContext, {} as any)
             .then(result => {
                 assert(messageSent);
                 assert(result.code === 0);

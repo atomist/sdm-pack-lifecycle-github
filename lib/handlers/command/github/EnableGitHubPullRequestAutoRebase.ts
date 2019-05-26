@@ -28,18 +28,22 @@ import {
 import { ConfigurableCommandHandler } from "@atomist/automation-client/lib/decorators";
 import { HandleCommand } from "@atomist/automation-client/lib/HandleCommand";
 import { AutoMergeLabel } from "@atomist/sdm-pack-lifecycle/lib/handlers/event/pullrequest/autoMerge";
-import { addAutoMergeLabels } from "./AddGitHubPullRequestAutoLabels";
+import {
+    addAutoMergeLabels,
+    addAutoRebaseLabels,
+    AutoRebaseOnPushLabel,
+} from "./AddGitHubPullRequestAutoLabels";
 import * as github from "./gitHubApi";
 
 /**
  * Enable Pull Request auto merge.
  */
-@ConfigurableCommandHandler("Enable Pull Request auto merge", {
-    intent: ["auto merge pr", "auto merge github pr"],
+@ConfigurableCommandHandler("Enable Pull Request auto rebase", {
+    intent: ["auto rebase pr", "auto rebase github pr"],
     autoSubmit: true,
 })
-@Tags("github", "pr", "auto-merge")
-export class EnableGitHubPullRequestAutoMerge implements HandleCommand {
+@Tags("github", "pr", "auto-rebase")
+export class EnableGitHubPullRequestAutoRebase implements HandleCommand {
 
     @MappedParameter(MappedParameters.GitHubRepository)
     public repo: string;
@@ -49,7 +53,7 @@ export class EnableGitHubPullRequestAutoMerge implements HandleCommand {
 
     @Parameter({
         displayName: "Pull Request Number",
-        description: "number of the pull request number to merge, with no leading `#`",
+        description: "number of the pull request number to rebase, with no leading `#`",
         pattern: /^.*$/,
         validInput: "an open GitHub pull request number",
         minLength: 1,
@@ -65,14 +69,14 @@ export class EnableGitHubPullRequestAutoMerge implements HandleCommand {
     public githubToken: string;
 
     public async handle(ctx: HandlerContext): Promise<HandlerResult> {
-        await addAutoMergeLabels(this.owner, this.repo, this.githubToken, this.apiUrl);
+        await addAutoRebaseLabels(this.owner, this.repo, this.githubToken, this.apiUrl);
 
         const api = github.api(this.githubToken, this.apiUrl);
         await api.issues.addLabels({
             owner: this.owner,
             repo: this.repo,
             number: this.issue,
-            labels: [AutoMergeLabel],
+            labels: [AutoRebaseOnPushLabel],
         });
 
         return Success;

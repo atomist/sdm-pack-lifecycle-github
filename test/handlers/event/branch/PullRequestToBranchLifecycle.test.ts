@@ -19,6 +19,7 @@ import {
     EventFired,
     HandlerContext,
     MessageOptions,
+    RequiredMessageOptions,
     SlackDestination,
 } from "@atomist/automation-client";
 import { MessageClientSupport } from "@atomist/automation-client/lib/spi/message/MessageClientSupport";
@@ -159,6 +160,8 @@ describe("PullRequestToBranchLifecycle", () => {
                 messageSent = true;
                 return Promise.resolve();
             }
+
+            public async delete(destinations: Destination | Destination[], options: RequiredMessageOptions): Promise<void> {}
         }
 
         const ctx: any = {
@@ -176,7 +179,7 @@ describe("PullRequestToBranchLifecycle", () => {
         };
         const handler = pullRequestToBranchLifecycle(DefaultGitHubLifecycleOptions.branch.chat).listener;
 
-        handler(JSON.parse(payload) as EventFired<any>, ctx as HandlerContext, {})
+        handler(JSON.parse(payload) as EventFired<any>, ctx as HandlerContext, {} as any)
             .then(result => {
                 assert(messageSent);
                 assert(result.code === 0);

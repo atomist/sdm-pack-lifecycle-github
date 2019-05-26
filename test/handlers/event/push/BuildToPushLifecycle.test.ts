@@ -141,7 +141,7 @@ describe("BuildToPushLifecycle", () => {
             },
             messageClient: new MockMessageClient(),
         };
-        buildToPushLifecycle(DefaultGitHubLifecycleOptions.push.chat).listener(JSON.parse(payload) as EventFired<any>, ctx, {})
+        buildToPushLifecycle(DefaultGitHubLifecycleOptions.push.chat).listener(JSON.parse(payload) as EventFired<any>, ctx, {} as any)
             .then(result => {
                 assert.deepEqual(result, Success);
             })

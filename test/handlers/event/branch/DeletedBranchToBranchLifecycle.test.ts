@@ -19,6 +19,7 @@ import {
     EventFired,
     HandlerContext,
     MessageOptions,
+    RequiredMessageOptions,
     SlackDestination,
 } from "@atomist/automation-client";
 import {
@@ -109,6 +110,7 @@ describe("DeletedBranchToBranchLifecycle", () => {
 
     it("display a branch deleted message", done => {
         let messageSent = false;
+
         class MockMessageClient extends MessageClientSupport {
 
             protected doSend(msg: any, destinations: Destination[], options?: MessageOptions): Promise<any> {
@@ -120,6 +122,9 @@ describe("DeletedBranchToBranchLifecycle", () => {
                 messageSent = true;
                 return Promise.resolve();
             }
+
+            public async delete(destinations: Destination | Destination[], options: RequiredMessageOptions): Promise<void> {
+            }
         }
 
         const ctx: any = {
@@ -127,7 +132,7 @@ describe("DeletedBranchToBranchLifecycle", () => {
         };
         const handler = deletedBranchToBranchLifecycle(DefaultGitHubLifecycleOptions.branch.chat).listener;
 
-        handler(JSON.parse(payload) as EventFired<any>, ctx as HandlerContext, {})
+        handler(JSON.parse(payload) as EventFired<any>, ctx as HandlerContext, {} as any)
             .then(result => {
                 assert(messageSent);
                 assert(result.code === 0);

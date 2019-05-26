@@ -37,15 +37,17 @@ import { bold } from "@atomist/slack-messages";
 import * as Github from "@octokit/rest";
 import * as github from "./gitHubApi";
 
+export const AutoRebaseOnPushLabel = "auto-rebase:on-push";
+
 /**
- * Add Pull Request auto merge labels.
+ * Add Pull Request auto merge and rebase labels.
  */
-@ConfigurableCommandHandler("Add Pull Request auto merge labels", {
-    intent: ["add auto merge labels"],
+@ConfigurableCommandHandler("Add Pull Request auto merge and rebase labels", {
+    intent: ["add pr labels", "add auto merge labels"],
     autoSubmit: true,
 })
-@Tags("github", "pr", "auto-merge")
-export class AddGitHubPullRequestAutoMergeLabels implements HandleCommand {
+@Tags("github", "pr", "auto-merge", "auto-rebase")
+export class AddGitHubPullRequestAutoLabels implements HandleCommand {
 
     @MappedParameter(MappedParameters.GitHubRepository)
     public repo: string;
@@ -61,10 +63,11 @@ export class AddGitHubPullRequestAutoMergeLabels implements HandleCommand {
 
     public async handle(ctx: HandlerContext): Promise<HandlerResult> {
         await addAutoMergeLabels(this.owner, this.repo, this.githubToken, this.apiUrl);
+        await addAutoRebaseLabels(this.owner, this.repo, this.githubToken, this.apiUrl);
 
         await ctx.messageClient.respond(slackSuccessMessage(
             "Auto Merge",
-            `Successfully added auto merge labels to ${bold(`${this.owner}/${this.repo}`)}`));
+            `Successfully added auto merge and rebase labels to ${bold(`${this.owner}/${this.repo}`)}`));
         return Success;
     }
 }
@@ -85,11 +88,20 @@ export async function addAutoMergeLabels(owner: string,
     return Success;
 }
 
+export async function addAutoRebaseLabels(owner: string,
+                                          repo: string,
+                                          token: string,
+                                          apiUrl: string): Promise<HandlerResult> {
+    const api = github.api(token, apiUrl);
+    await addLabel(AutoRebaseOnPushLabel, "0E8A16", owner, repo, api);
+    return Success;
+}
+
 async function addLabel(name: string,
                         color: string,
                         owner: string,
                         repo: string,
-                        api: Github) {
+                        api: Github): Promise<void> {
     try {
         await api.issues.getLabel({
             name,
