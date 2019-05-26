@@ -77,6 +77,10 @@ import { RaisePrActionContributor } from "./handlers/event/branch/rendering/Bran
 import * as ca from "./handlers/event/comment/rendering/CommentActionContributors";
 import * as ia from "./handlers/event/issue/rendering/IssueActionContributors";
 import * as pra from "./handlers/event/pullrequest/rendering/PullRequestActionContributors";
+import {
+    GitHubPullRequestCommentCreator,
+    GitHubPullRequestCommentUpdater,
+} from "./handlers/event/push/RebaseOnPush";
 import * as pa from "./handlers/event/push/rendering/PushActionContributors";
 import * as rra from "./handlers/event/review/rendering/ReviewActionContributors";
 import deepmerge = require("deepmerge");
@@ -164,6 +168,10 @@ export const DefaultGitHubLifecycleOptions: LifecycleOptions = deepmerge(Default
                     new CardActionContributorWrapper(new pra.DeleteActionContributor()),
                 ] : [],
             ],
+        },
+        rebase: {
+            commentCreator: GitHubPullRequestCommentCreator,
+            commentUpdater: GitHubPullRequestCommentUpdater,
         },
     },
     push: {

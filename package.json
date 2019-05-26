@@ -43,7 +43,7 @@
     "@atomist/automation-client": "1.5.0-master.20190525081042",
     "@atomist/sdm": "1.5.0-master.20190526082545",
     "@atomist/sdm-core": "1.5.0-master.20190525162949",
-    "@atomist/sdm-pack-lifecycle": "0.2.0-master.20190526111242",
+    "@atomist/sdm-pack-lifecycle": "0.2.0-master.20190526161951",
     "@atomist/slack-messages": "1.1.1-master.20190217194316",
     "@types/mocha": "^5.2.6",
     "@types/power-assert": "^1.5.0",
