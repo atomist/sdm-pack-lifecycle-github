@@ -33,6 +33,20 @@ import { DefaultGitHubLifecycleOptions } from "../../../../lib/githubLifecycleSu
 
 describe("StatusToPushLifecycle", () => {
 
+    before(() => {
+        (global as any).__runningAutomationClient = {
+            configuration: {
+                sdm: {
+                    preferenceStoreFactory: InMemoryPreferenceStoreFactory,
+                },
+            },
+        };
+    });
+
+    after(() => {
+        delete (global as any).__runningAutomationClient;
+    });
+
     /* tslint:disable */
     const payloadRaisePr = `
     {
@@ -1109,14 +1123,6 @@ describe("StatusToPushLifecycle", () => {
     /* tslint:enable */
 
     it("render goal attachments separately per env", done => {
-
-        (global as any).__runningAutomationClient = {
-            configuration: {
-                sdm: {
-                    preferenceStoreFactory: InMemoryPreferenceStoreFactory,
-                },
-            },
-        };
 
         let messageSent = false;
 

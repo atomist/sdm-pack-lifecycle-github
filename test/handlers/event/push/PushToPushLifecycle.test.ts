@@ -23,6 +23,7 @@ import {
     QueryOptions,
     SlackDestination,
 } from "@atomist/automation-client";
+import { InMemoryPreferenceStoreFactory } from "@atomist/sdm-core/lib/internal/preferences/InMemoryPreferenceStore";
 import { pushToPushLifecycle } from "@atomist/sdm-pack-lifecycle/lib/handlers/event/push/PushToPushLifecycle";
 import { SlackMessage } from "@atomist/slack-messages";
 import "mocha";
@@ -31,6 +32,20 @@ import { DefaultGitHubLifecycleOptions } from "../../../../lib/githubLifecycleSu
 
 describe("PushToPushLifecycle", () => {
 
+    before(() => {
+        (global as any).__runningAutomationClient = {
+            configuration: {
+                sdm: {
+                    preferenceStoreFactory: InMemoryPreferenceStoreFactory,
+                },
+            },
+        };
+    });
+
+    after(() => {
+        delete (global as any).__runningAutomationClient;
+    });
+    
     /* tslint:disable */
     const payload = `{
     "data": {
