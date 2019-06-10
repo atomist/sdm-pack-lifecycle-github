@@ -74,7 +74,7 @@ export class MergeActionContributor extends AbstractIdentifiableContribution
             const mergeButtons = this.mergePRActions(pr, repo);
 
             const commits = pr.commits.filter(c => !!c.statuses && c.statuses.length > 0)
-                .sort((c1, c2) => c2.timestamp.localeCompare(c1.timestamp));
+                .sort((c1, c2) => (c2.timestamp || "0").localeCompare(c1.timestamp));
             if (commits.length > 0) {
                 const commit = commits[0];
                 if (!commit.statuses.some(s => s.state !== "success")) {
@@ -266,7 +266,7 @@ export class ApproveActionContributor extends AbstractIdentifiableContribution
         const buttons: Action[] = [];
 
         if (context.rendererId === "status") {
-            const commits = pr.commits.sort((c1, c2) => c2.timestamp.localeCompare(c1.timestamp))
+            const commits = pr.commits.sort((c1, c2) => (c2.timestamp || "0").localeCompare(c1.timestamp))
                 .filter(c => !!c.statuses && c.statuses.length > 0);
 
             if (commits.length > 0 && !!commits[0].statuses) {
