@@ -33,8 +33,8 @@ import { isPrAutoMergeEnabled } from "@atomist/sdm-pack-lifecycle/lib/handlers/e
 import { Action } from "@atomist/slack-messages";
 import * as _ from "lodash";
 import { AutoRebaseOnPushLabel } from "../../../command/github/AddGitHubPullRequestAutoLabels";
-import { DefaultGitHubApiUrl } from "../../../command/github/gitHubApi";
 import * as github from "../../../command/github/gitHubApi";
+import { DefaultGitHubApiUrl } from "../../../command/github/gitHubApi";
 
 const SuggestedReviewersQuery = `query SuggestedReviewers($owner: String!, $name: String!, $number: Int!) {
   repository(owner: $owner, name: $name) {
@@ -442,7 +442,8 @@ export class AssignReviewerActionContributor extends AbstractIdentifiableContrib
             if (repo.org &&
                 repo.org.provider &&
                 repo.org.provider.apiUrl === DefaultGitHubApiUrl &&
-                (context.credentials as TokenCredentials).token) {
+                !!context.credentials &&
+                !!(context.credentials as TokenCredentials).token) {
                 return this.assignReviewMenu(pr, repo, (context.credentials as TokenCredentials).token);
             } else {
                 return Promise.resolve(this.assignReviewButton(pr, repo));

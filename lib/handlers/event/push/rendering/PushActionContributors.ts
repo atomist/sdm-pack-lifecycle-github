@@ -186,7 +186,8 @@ export class TagPushActionContributor extends AbstractIdentifiableContribution
         if (repo.org &&
             repo.org.provider &&
             repo.org.provider.apiUrl === DefaultGitHubApiUrl &&
-            (context.credentials as TokenCredentials).token) {
+            !!context.credentials &&
+            !!(context.credentials as TokenCredentials).token) {
 
             const client = new ApolloGraphClient("https://api.github.com/graphql",
                 { Authorization: `bearer ${(context.credentials as TokenCredentials).token}` });

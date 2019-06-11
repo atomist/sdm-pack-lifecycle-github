@@ -276,7 +276,11 @@ export class AssignActionContributor extends AbstractIdentifiableContribution
     public menusFor(issue: graphql.IssueToIssueLifecycle.Issue, context: RendererContext): Promise<Action[]> {
         const repo = context.lifecycle.extract("repo");
 
-        if (context.rendererId === this.rendererId && context.has("show_more") && isGitHubCom(repo)) {
+        if (context.rendererId === this.rendererId &&
+            context.has("show_more") &&
+            isGitHubCom(repo) &&
+            !!context.credentials &&
+            !!(context.credentials as TokenCredentials).token) {
             const client = new ApolloGraphClient("https://api.github.com/graphql",
                 { Authorization: `bearer ${(context.credentials as TokenCredentials).token}` });
 
