@@ -114,7 +114,7 @@ export class CreateGitHubTag implements HandleCommand {
                 },
             })
             .then(result => {
-                const person = _.get(result, "ChatTeam[0].members[0].person") as graphql.ChatId.Person;
+                const person = _.get(result, "ChatTeam[0].members[0].person");
                 if (person) {
                     return person;
                 } else {

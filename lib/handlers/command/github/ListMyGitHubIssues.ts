@@ -1,5 +1,5 @@
 /*
- * Copyright © 2018 Atomist, Inc.
+ * Copyright © 2019 Atomist, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -74,7 +74,7 @@ export class ListMyGitHubIssues implements HandleCommand {
                 },
             })
             .then(result => {
-                const person = _.get(result, "ChatTeam[0].members[0].person") as graphql.ChatId.Person;
+                const person = _.get(result, "ChatTeam[0].members[0].person");
                 if (person) {
                     return person;
                 } else {

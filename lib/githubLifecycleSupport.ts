@@ -33,6 +33,7 @@ import {
     PushToPushLifecycle,
     ReviewToReviewLifecycle,
 } from "@atomist/sdm-pack-lifecycle/lib/typings/types";
+import deepmerge = require("deepmerge");
 import { AddGitHubPullRequestAutoLabels } from "./handlers/command/github/AddGitHubPullRequestAutoLabels";
 import { AssignGitHubPullRequestReviewer } from "./handlers/command/github/AssignGitHubPullRequestReviewer";
 import { AssignToMeGitHubIssue } from "./handlers/command/github/AssignToMeGitHubIssue";
@@ -83,7 +84,6 @@ import {
 } from "./handlers/event/push/RebaseOnPush";
 import * as pa from "./handlers/event/push/rendering/PushActionContributors";
 import * as rra from "./handlers/event/review/rendering/ReviewActionContributors";
-import deepmerge = require("deepmerge");
 
 export const DefaultGitHubLifecycleOptions: LifecycleOptions = deepmerge(DefaultLifecycleRenderingOptions, {
     branch: {

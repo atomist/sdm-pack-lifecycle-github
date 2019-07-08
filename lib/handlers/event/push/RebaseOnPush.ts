@@ -42,7 +42,7 @@ export const GitHubPullRequestCommentCreator: PullRequestCommentCreator<GitHubCo
         owner: pr.repo.owner,
         repo: pr.repo.name,
         number: pr.number,
-        id: result.id as any,
+        id: result.id,
     };
 };
 
