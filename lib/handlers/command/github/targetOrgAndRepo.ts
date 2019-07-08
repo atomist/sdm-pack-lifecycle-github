@@ -182,8 +182,8 @@ export const retrieveIssue = async (ctx: HandlerContext, params: IssueOwnerParam
     let title;
     let author;
     let authorIcon;
-    const issue = _.get(issueResult, "Org[0].repo[0].issue[0]") as types.IssueOrPr.Issue;
-    const repo = _.get(issueResult, "Org[0].repo[0]") as types.IssueOrPr.Repo;
+    const issue = _.get(issueResult, "Org[0].repo[0].issue[0]");
+    const repo = _.get(issueResult, "Org[0].repo[0]");
     if (issue) {
         title = `${bold(url(issueUrl(repo, issue), `#${issue.number.toString()}: ${issue.title}`))}`;
         author = issue.openedBy.login;

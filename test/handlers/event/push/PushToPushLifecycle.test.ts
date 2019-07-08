@@ -45,7 +45,7 @@ describe("PushToPushLifecycle", () => {
     after(() => {
         delete (global as any).__runningAutomationClient;
     });
-    
+
     /* tslint:disable */
     const payload = `{
     "data": {
