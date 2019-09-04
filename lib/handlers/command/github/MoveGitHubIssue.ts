@@ -34,8 +34,10 @@ import {
     slackWarningMessage,
 } from "@atomist/sdm";
 import * as slack from "@atomist/slack-messages";
-import { IssuesGetResponse,
-    IssuesListCommentsResponse } from "@octokit/rest";
+import {
+    IssuesGetResponse,
+    IssuesListCommentsResponse,
+} from "@octokit/rest";
 import * as github from "./gitHubApi";
 import {
     IssueOwnerParameters,
