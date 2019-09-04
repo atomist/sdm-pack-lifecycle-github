@@ -146,7 +146,7 @@ export class CreateGitHubIssue implements HandleCommand {
                         number: gi.number,
                         body: gi.body,
                         title: gi.title,
-                        state: gi.state,
+                        state: gi.state as any,
                         labels: gi.labels ? gi.labels.map((l: any) => ({ name: l.name })) : [],
                         repo: {
                             owner: this.owner,

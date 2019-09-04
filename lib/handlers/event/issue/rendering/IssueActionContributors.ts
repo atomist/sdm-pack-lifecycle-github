@@ -423,7 +423,7 @@ export class ReactionActionContributor extends AbstractIssueActionContributor
                                  context: RendererContext): Promise<Action[]> {
         try {
             const api = github.api((context.credentials as TokenCredentials).token, _.get(repo, "org.provider.apiUrl"));
-            const result = await api.reactions.getForIssue({
+            const result = await api.reactions.listForIssue({
                 owner: repo.owner,
                 repo: repo.name,
                 number: issue.number,

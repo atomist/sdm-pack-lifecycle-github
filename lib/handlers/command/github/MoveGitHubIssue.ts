@@ -34,6 +34,8 @@ import {
     slackWarningMessage,
 } from "@atomist/sdm";
 import * as slack from "@atomist/slack-messages";
+import { IssuesGetResponse,
+    IssuesListCommentsResponse } from "@octokit/rest";
 import * as github from "./gitHubApi";
 import {
     IssueOwnerParameters,
@@ -96,7 +98,7 @@ export class MoveGitHubIssue implements HandleCommand {
             number: this.issue,
         })
         .then(issue => {
-            return api.issues.getComments({
+            return api.issues.listComments({
                 owner: this.owner,
                 repo: this.repo,
                 number: this.issue,
@@ -105,8 +107,10 @@ export class MoveGitHubIssue implements HandleCommand {
                 return [issue.data, result.data];
             });
         })
-        .then(([issue, comment]) => {
-            const comments = comment.map((c: any) => `
+        .then(([i, cm]) => {
+            const issue = i as IssuesGetResponse;
+            const comment = cm as IssuesListCommentsResponse;
+            const comments = comment.map(c => `
 ---
 Comment by @${c.user.login} at ${c.created_at}:
 
@@ -136,7 +140,7 @@ ${comments}`;
                 body: `Issue moved to ${this.targetOwner}/${this.targetRepo}#${newIssue.data.number}`,
             })
             .then(() => {
-                return api.issues.edit({
+                return api.issues.update({
                     owner: this.owner,
                     repo: this.repo,
                     number: this.issue,

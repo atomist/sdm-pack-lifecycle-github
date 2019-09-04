@@ -126,13 +126,15 @@ export class DisplayGitHubIssue implements HandleCommand {
                                 number: this.issue,
                                 title: gi.title,
                                 body: gi.body,
-                                state: gi.state,
+                                state: gi.state as any,
                                 labels: gi.labels.map((l: any) => ({ name: l.name })) || [],
                                 createdAt: gi.created_at,
                                 updatedAt: gi.updated_at,
                                 closedAt: gi.closed_at,
                                 assignees: gi.assignees.map((a: any) => ({ login: a.login })) || [],
-                                openedBy: gi.user.login,
+                                openedBy: {
+                                    login: gi.user.login,
+                                },
                                 resolvingCommits: [],
                             };
                             return handler({

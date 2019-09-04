@@ -70,7 +70,7 @@ export class ToggleLabelGitHubIssue implements HandleCommand {
                 }
             })
             .then(labels => {
-                return github.api(this.githubToken, this.apiUrl).issues.edit({
+                return github.api(this.githubToken, this.apiUrl).issues.update({
                     owner: this.owner,
                     repo: this.repo,
                     number: this.issue,

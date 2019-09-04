@@ -53,7 +53,7 @@ export class CloseGitHubIssue implements HandleCommand {
 
     public handle(ctx: HandlerContext): Promise<HandlerResult> {
 
-        return github.api(this.githubToken, this.apiUrl).issues.edit({
+        return github.api(this.githubToken, this.apiUrl).issues.update({
             owner: this.owner,
             repo: this.repo,
             number: this.issue,

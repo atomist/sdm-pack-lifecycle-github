@@ -19,31 +19,42 @@ import {
     HandlerContext,
     HandlerError,
     HandlerResult,
+    logger,
     MessageOptions,
     Success,
 } from "@atomist/automation-client";
 import { slackErrorMessage } from "@atomist/sdm";
-import * as GitHubApi from "@octokit/rest";
-import * as URL from "url";
+import * as github from "@octokit/rest";
+
+// Install the throttling plugin
+// tslint:disable:no-var-requires
+github.plugin(require("@octokit/plugin-throttling"));
 
 export const DefaultGitHubApiUrl = "https://api.github.com/";
-export const DefaultGitHubUrl = "https://github.com/";
-export const DefaultGitHubProviderId = "zjlmxjzwhurspem";
 
-export function api(token: string, apiUrl: string = DefaultGitHubApiUrl): GitHubApi {
-    // separate the url
-    const url = URL.parse(apiUrl);
-
-    const gitHubApi = new GitHubApi({
-        host: url.hostname,
-        // latest @octokit/rest can't deal with a single / as context; it will create invalid urls with //
-        pathPrefix: url.pathname !== "/" ? url.pathname : undefined,
-        protocol: url.protocol.slice(0, -1),
+export function api(token: string, apiUrl: string = DefaultGitHubApiUrl): github {
+    const url = new URL(apiUrl);
+    return new github({
+        auth: `token ${token}`,
+        protocol: url.protocol,
+        host: url.host,
         port: +url.port,
-    });
+        pathPrefix: url.pathname,
+        throttle: {
+            onRateLimit: (retryAfter: any, options: any) => {
+                logger.warn(`Request quota exhausted for request '${options.method} ${options.url}'`);
 
-    gitHubApi.authenticate({ type: "token", token });
-    return gitHubApi;
+                if (options.request.retryCount === 0) { // only retries once
+                    logger.debug(`Retrying after ${retryAfter} seconds!`);
+                    return true;
+                }
+                return false;
+            },
+            onAbuseLimit: (retryAfter: any, options: any) => {
+                logger.warn(`Abuse detected for request '${options.method} ${options.url}'`);
+            },
+        },
+    });
 }
 
 export function handleError(title: string,

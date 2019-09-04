@@ -127,7 +127,7 @@ export class CreateGitHubTag implements HandleCommand {
                     email: person.emails && person.emails.length > 0 ? person.emails[0].address : "bot@atomist.com",
                     date: new Date().toISOString(),
                 };
-                return (github.api(this.githubToken, this.apiUrl).gitdata as any).createTag({
+                return (github.api(this.githubToken, this.apiUrl).git as any).createTag({
                     owner: this.owner,
                     repo: this.repo,
                     tag: this.tag,
@@ -138,7 +138,7 @@ export class CreateGitHubTag implements HandleCommand {
                 });
             })
             .then(() => {
-                return github.api(this.githubToken, this.apiUrl).gitdata.createReference({
+                return github.api(this.githubToken, this.apiUrl).git.createRef({
                     owner: this.owner,
                     repo: this.repo,
                     ref: `refs/tags/${this.tag}`,

@@ -108,7 +108,7 @@ export class MergeGitHubPullRequest implements HandleCommand {
 
     public handle(ctx: HandlerContext): Promise<HandlerResult> {
         const api = github.api(this.githubToken, this.apiUrl);
-        return api.pullRequests.get({
+        return api.pulls.get({
                 owner: this.owner,
                 repo: this.repo,
                 number: this.issue,
@@ -118,7 +118,7 @@ export class MergeGitHubPullRequest implements HandleCommand {
             })
             .then(pr => {
                 if (pr.mergeable === true) {
-                    return api.pullRequests.merge({
+                    return api.pulls.merge({
                         owner: this.owner,
                         repo: this.repo,
                         number: this.issue,

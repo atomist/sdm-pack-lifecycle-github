@@ -107,7 +107,7 @@ export class AssignGitHubPullRequestReviewer implements HandleCommand {
                     });
                 }))
                 .then(chatIds => {
-                    return github.api(this.githubToken, this.apiUrl).pullRequests.createReviewRequest({
+                    return github.api(this.githubToken, this.apiUrl).pulls.createReviewRequest({
                         owner: this.owner,
                         repo: this.repo,
                         number: this.issue,

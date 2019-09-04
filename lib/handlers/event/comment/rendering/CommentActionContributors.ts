@@ -272,10 +272,10 @@ export class ReactionActionContributor extends AbstractCommentActionContributor
                                  context: RendererContext): Promise<Action[]> {
         try {
             const api = github.api((context.credentials as TokenCredentials).token);
-            const result = await api.reactions.getForIssueComment({
+            const result = await api.reactions.listForIssueComment({
                 owner: repo.owner,
                 repo: repo.name,
-                id: comment.gitHubId,
+                comment_id: +comment.gitHubId,
                 content: "+1",
             });
             return [buttonForCommand(

@@ -47,10 +47,10 @@ export const GitHubPullRequestCommentCreator: PullRequestCommentCreator<GitHubCo
 };
 
 export const GitHubPullRequestCommentUpdater: PullRequestCommentUpdater<GitHubCommentDetails> = async (comment, credentials, body) => {
-    return (await api((credentials as TokenCredentials).token, comment.apiUrl).issues.editComment({
+    await api((credentials as TokenCredentials).token, comment.apiUrl).issues.updateComment({
         owner: comment.owner,
         repo: comment.repo,
-        id: comment.id.toString(),
+        comment_id: comment.id,
         body,
-    })).data;
+    });
 };

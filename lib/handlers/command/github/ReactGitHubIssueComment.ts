@@ -58,7 +58,7 @@ export class ReactGitHubIssueComment implements HandleCommand {
         return github.api(this.githubToken, this.apiUrl).reactions.createForIssueComment({
             owner: this.owner,
             repo: this.repo,
-            id: this.comment,
+            comment_id: +this.comment,
             content: this.reaction,
         })
             .then(() => Success)

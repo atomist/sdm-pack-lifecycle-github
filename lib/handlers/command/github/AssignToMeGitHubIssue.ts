@@ -93,7 +93,7 @@ export class AssignToMeGitHubIssue implements HandleCommand {
                                 assignees.push(gitHubId);
                             }
 
-                            return api.issues.edit({
+                            return api.issues.update({
                                 owner: this.owner,
                                 repo: this.repo,
                                 number: this.issue,
@@ -108,7 +108,7 @@ export class AssignToMeGitHubIssue implements HandleCommand {
                     } else {
                         assignees.push(this.assignee);
                     }
-                    return api.issues.edit({
+                    return api.issues.update({
                         owner: this.owner,
                         repo: this.repo,
                         number: this.issue,

@@ -391,7 +391,7 @@ export class ThumbsUpActionContributor extends AbstractIdentifiableContribution
 
             try {
                 const api = github.api((context.credentials as TokenCredentials).token);
-                const result = await api.reactions.getForIssue({
+                const result = await api.reactions.listForIssue({
                     owner: repo.owner,
                     repo: repo.name,
                     number: pr.number,

@@ -29,7 +29,6 @@ import {
 import { ConfigurableCommandHandler } from "@atomist/automation-client/lib/decorators";
 import { HandleCommand } from "@atomist/automation-client/lib/HandleCommand";
 import { replaceChatIdWithGitHubId } from "@atomist/sdm-pack-lifecycle";
-import { PullRequestsCreateParams } from "@octokit/rest";
 import * as github from "./gitHubApi";
 
 @ConfigurableCommandHandler("Raise a GitHub pull request", {
@@ -79,14 +78,14 @@ export class RaiseGitHubPullRequest implements HandleCommand {
     public handle(ctx: HandlerContext): Promise<HandlerResult> {
         return replaceChatIdWithGitHubId(this.body, this.teamId, ctx)
             .then(body => {
-                return github.api(this.githubToken, this.apiUrl).pullRequests.create({
+                return github.api(this.githubToken, this.apiUrl).pulls.create({
                     owner: this.owner,
                     repo: this.repo,
                     title: this.title,
                     body,
                     head: this.head,
                     base: this.base,
-                } as any as PullRequestsCreateParams);
+                });
             })
             .catch(err => {
                 return github.handleError("Raise Pull Request", err, ctx);

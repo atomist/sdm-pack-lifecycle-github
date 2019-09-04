@@ -52,7 +52,7 @@ export class DeleteGitHubBranch implements HandleCommand {
     public githubToken: string;
 
     public handle(ctx: HandlerContext): Promise<HandlerResult> {
-        return github.api(this.githubToken, this.apiUrl).gitdata.deleteReference({
+        return github.api(this.githubToken, this.apiUrl).git.deleteRef({
                 owner: this.owner,
                 repo: this.repo,
                 ref: `heads/${this.branch.trim()}`,
