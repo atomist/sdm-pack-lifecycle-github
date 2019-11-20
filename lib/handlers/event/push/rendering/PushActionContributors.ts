@@ -175,6 +175,7 @@ export class TagPushActionContributor extends AbstractIdentifiableContribution
         tagHandler.sha = push.after.sha;
         tagHandler.repo = repo.name;
         tagHandler.owner = repo.owner;
+        tagHandler.apiUrl = repo.org.provider.apiUrl;
 
         const defaultTagAction = [buttonForCommand(
             {
@@ -275,6 +276,7 @@ export class TagTagActionContributor extends AbstractIdentifiableContribution
                             tagHandler.sha = push.after.sha;
                             tagHandler.repo = repo.name;
                             tagHandler.owner = repo.owner;
+                            tagHandler.apiUrl = repo.org.provider.apiUrl;
 
                             return [buttonForCommand(
                                 {
@@ -377,6 +379,7 @@ export class PullRequestActionContributor extends AbstractIdentifiableContributi
                                 body,
                                 base: node.repo.defaultBranch,
                                 head: node.branch,
+                                apiUrl: repo.org.provider.apiUrl,
                             }));
                     }
                     return buttons;

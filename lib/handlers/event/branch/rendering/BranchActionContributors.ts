@@ -48,6 +48,7 @@ export class RaisePrActionContributor extends AbstractIdentifiableContribution
             handler.head = node.name;
             handler.base = node.repo.defaultBranch || "master";
             handler.title = node.commit.message;
+            handler.apiUrl = node.repo.org.provider.apiUrl;
             actions.push(buttonForCommand({ text: "Raise PR" }, handler));
         }
         return Promise.resolve(actions);

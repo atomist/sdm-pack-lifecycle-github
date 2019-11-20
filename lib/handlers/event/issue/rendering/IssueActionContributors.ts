@@ -163,6 +163,7 @@ export class AssignToMeActionContributor extends AbstractIdentifiableContributio
             handler.repo = repo.name;
             handler.owner = repo.owner;
             handler.issue = issue.number;
+            handler.apiUrl = repo.org.provider.apiUrl;
             handler.assignee = AssignToMe;
             return Promise.resolve([
                 buttonForCommand({ text: "Assign to Me" }, handler),
@@ -203,6 +204,7 @@ export class MoveActionContributor extends AbstractIdentifiableContribution
                         issue: issue.number,
                         title: issue.timestamp,
                         msgId: context.lifecycle.id,
+                        apiUrl: repo.org.provider.apiUrl,
                     }),
             ]);
         }
@@ -313,6 +315,7 @@ export class AssignActionContributor extends AbstractIdentifiableContribution
                     handler.repo = repo.name;
                     handler.owner = repo.owner;
                     handler.issue = issue.number;
+                    handler.apiUrl = repo.org.provider.apiUrl;
                     return [
                         menuForCommand(menu, handler, "assignee"),
                     ];
@@ -376,7 +379,7 @@ export class LabelActionContributor extends AbstractIdentifiableContribution
             return Promise.resolve([
                 menuForCommand(menu,
                     "ToggleLabelGitHubIssue", "label",
-                    { issue: issue.number, repo: repo.name, owner: repo.owner }),
+                    { issue: issue.number, repo: repo.name, owner: repo.owner, apiUrl: repo.org.provider.apiUrl }),
             ]);
         }
         return Promise.resolve([]);
@@ -393,7 +396,7 @@ export class CloseActionContributor extends AbstractIssueActionContributor
     protected createButton(issue: graphql.IssueToIssueLifecycle.Issue,
                            repo: graphql.IssueFields.Repo): Promise<Action[]> {
         return Promise.resolve([buttonForCommand({ text: "Close" },
-            "CloseGitHubIssue", { issue: issue.number, repo: repo.name, owner: repo.owner })]);
+            "CloseGitHubIssue", { issue: issue.number, repo: repo.name, owner: repo.owner, apiUrl: repo.org.provider.apiUrl })]);
     }
 }
 
@@ -407,7 +410,7 @@ export class CommentActionContributor extends AbstractIssueActionContributor
     protected createButton(issue: graphql.IssueToIssueLifecycle.Issue,
                            repo: graphql.IssueFields.Repo): Promise<Action[]> {
         return Promise.resolve([buttonForCommand({ text: "Comment", role: "comment" },
-            "CommentGitHubIssue", { issue: issue.number, repo: repo.name, owner: repo.owner })]);
+            "CommentGitHubIssue", { issue: issue.number, repo: repo.name, owner: repo.owner, apiUrl: repo.org.provider.apiUrl })]);
     }
 }
 
@@ -432,11 +435,11 @@ export class ReactionActionContributor extends AbstractIssueActionContributor
             return [buttonForCommand(
                 { text: `:+1:${result.data.length > 0 ? " " + result.data.length : ""}`, role: "react" },
                 "ReactGitHubIssue",
-                { issue: issue.number, repo: repo.name, owner: repo.owner, reaction: "+1" })];
+                { issue: issue.number, repo: repo.name, owner: repo.owner, reaction: "+1", apiUrl: repo.org.provider.apiUrl })];
         } catch (e) {
             return [buttonForCommand({ text: `:+1:`, role: "react" },
                 "ReactGitHubIssue",
-                { issue: issue.number, repo: repo.name, owner: repo.owner, reaction: "+1" })];
+                { issue: issue.number, repo: repo.name, owner: repo.owner, reaction: "+1", apiUrl: repo.org.provider.apiUrl })];
         }
     }
 }
@@ -455,6 +458,6 @@ export class ReopenActionContributor extends AbstractIssueActionContributor
     protected createButton(issue: graphql.IssueToIssueLifecycle.Issue,
                            repo: graphql.IssueFields.Repo): Promise<Action[]> {
         return Promise.resolve([buttonForCommand({ text: "Reopen" },
-            "ReopenGitHubIssue", { issue: issue.number, repo: repo.name, owner: repo.owner })]);
+            "ReopenGitHubIssue", { issue: issue.number, repo: repo.name, owner: repo.owner, apiUrl: repo.org.provider.apiUrl })]);
     }
 }
