@@ -187,7 +187,7 @@ export class AutoMergeActionContributor extends AbstractIdentifiableContribution
                     repo: repo.name,
                     owner: repo.owner,
                     issue: pr.number,
-                    apiUrl: repo.org.provider.apiUrl
+                    apiUrl: repo.org.provider.apiUrl,
                 }));
         }
 
