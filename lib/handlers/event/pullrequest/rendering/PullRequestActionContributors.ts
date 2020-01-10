@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
+import { ApolloGraphClient } from "@atomist/automation-client/lib/graph/ApolloGraphClient";
+import { TokenCredentials } from "@atomist/automation-client/lib/operations/common/ProjectOperationCredentials";
 import {
     buttonForCommand,
     menuForCommand,
     MenuSpecification,
-    TokenCredentials,
-} from "@atomist/automation-client";
-import { ApolloGraphClient } from "@atomist/automation-client/lib/graph/ApolloGraphClient";
+} from "@atomist/automation-client/lib/spi/message/MessageClient";
 import {
     AbstractIdentifiableContribution,
     graphql,

@@ -15,11 +15,6 @@
  */
 
 import {
-    adaptHandleCommand,
-    ExtensionPack,
-    metadata,
-} from "@atomist/sdm";
-import {
     CardActionContributorWrapper,
     DefaultLifecycleRenderingOptions,
     LifecycleOptions,
@@ -33,6 +28,9 @@ import {
     PushToPushLifecycle,
     ReviewToReviewLifecycle,
 } from "@atomist/sdm-pack-lifecycle/lib/typings/types";
+import { adaptHandleCommand } from "@atomist/sdm/lib/api-helper/machine/adaptHandleCommand";
+import { metadata } from "@atomist/sdm/lib/api-helper/misc/extensionPack";
+import { ExtensionPack } from "@atomist/sdm/lib/api/machine/ExtensionPack";
 import deepmerge = require("deepmerge");
 import { AddGitHubPullRequestAutoLabels } from "./handlers/command/github/AddGitHubPullRequestAutoLabels";
 import { AssignGitHubPullRequestReviewer } from "./handlers/command/github/AssignGitHubPullRequestReviewer";

@@ -34,17 +34,17 @@
     "semver": "^6.3.0"
   },
   "peerDependencies": {
-    "@atomist/automation-client": "^1.7.0",
-    "@atomist/sdm": "^1.7.0",
-    "@atomist/sdm-core": "^1.7.0",
-    "@atomist/sdm-pack-lifecycle": "^0.1.0",
+    "@atomist/automation-client": "2.0.0-remove-index.20200107155146",
+    "@atomist/sdm": "2.0.0-remove-index.20200107085713",
+    "@atomist/sdm-core": "2.0.0-remove-index.20200108081905",
+    "@atomist/sdm-pack-lifecycle": "0.2.0-master.20190904064045",
     "@atomist/slack-messages": "^1.1.1"
   },
   "devDependencies": {
-    "@atomist/automation-client": "^1.7.0",
-    "@atomist/sdm": "^1.7.0",
-    "@atomist/sdm-core": "^1.7.0",
-    "@atomist/sdm-pack-lifecycle": "0.2.0-master.20190904064045",
+    "@atomist/automation-client": "2.0.0-remove-index.20200107155146",
+    "@atomist/sdm": "2.0.0-remove-index.20200107085713",
+    "@atomist/sdm-core": "2.0.0-remove-index.20200108081905",
+    "@atomist/sdm-pack-lifecycle": "0.3.0-remove-index.20200110124325",
     "@atomist/slack-messages": "^1.1.1",
     "@types/mocha": "^5.2.7",
     "@types/power-assert": "^1.5.0",
@@ -57,7 +57,7 @@
     "ts-node": "^8.3.0",
     "tslint": "^5.19.0",
     "typedoc": "^0.15.0",
-    "typescript": "^3.6.3"
+    "typescript": "^3.7.4"
   },
   "directories": {
     "test": "test"

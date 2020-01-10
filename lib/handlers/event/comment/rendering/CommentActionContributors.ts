@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
+import { TokenCredentials } from "@atomist/automation-client/lib/operations/common/ProjectOperationCredentials";
 import {
     buttonForCommand,
     menuForCommand,
     MenuSpecification,
-    TokenCredentials,
-} from "@atomist/automation-client";
+} from "@atomist/automation-client/lib/spi/message/MessageClient";
 import {
     AbstractIdentifiableContribution,
     graphql,

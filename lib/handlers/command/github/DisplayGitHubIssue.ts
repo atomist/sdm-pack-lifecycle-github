@@ -15,18 +15,20 @@
  */
 
 import {
-    failure,
-    HandlerContext,
-    HandlerResult,
+    ConfigurableCommandHandler,
     MappedParameter,
     MappedParameters,
     Parameter,
     Secret,
     Secrets,
     Tags,
-} from "@atomist/automation-client";
-import { ConfigurableCommandHandler } from "@atomist/automation-client/lib/decorators";
+} from "@atomist/automation-client/lib/decorators";
 import { HandleCommand } from "@atomist/automation-client/lib/HandleCommand";
+import { HandlerContext } from "@atomist/automation-client/lib/HandlerContext";
+import {
+    failure,
+    HandlerResult,
+} from "@atomist/automation-client/lib/HandlerResult";
 import {
     graphql,
     Lifecycle,
@@ -119,7 +121,7 @@ export class DisplayGitHubIssue implements HandleCommand {
                                     org: {
                                         provider: {
                                             private: false,
-                                        },
+                                        } as any,
                                     },
                                 },
                                 name: this.issue.toString(),

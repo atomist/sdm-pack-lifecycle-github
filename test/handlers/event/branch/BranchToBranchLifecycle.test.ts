@@ -14,15 +14,15 @@
  * limitations under the License.
  */
 
+import { EventFired } from "@atomist/automation-client/lib/HandleEvent";
+import { HandlerContext } from "@atomist/automation-client/lib/HandlerContext";
+import { guid } from "@atomist/automation-client/lib/internal/util/string";
 import {
     Destination,
-    EventFired,
-    guid,
-    HandlerContext,
     MessageOptions,
     RequiredMessageOptions,
     SlackDestination,
-} from "@atomist/automation-client";
+} from "@atomist/automation-client/lib/spi/message/MessageClient";
 import {
     DefaultSlackMessageClient,
     MessageClientSupport,

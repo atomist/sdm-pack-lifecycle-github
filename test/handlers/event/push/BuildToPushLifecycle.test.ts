@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
+import { EventFired } from "@atomist/automation-client/lib/HandleEvent";
+import { Success } from "@atomist/automation-client/lib/HandlerResult";
+import { guid } from "@atomist/automation-client/lib/internal/util/string";
 import {
     Destination,
-    EventFired,
-    guid,
     MessageOptions,
     SlackDestination,
-    Success,
-} from "@atomist/automation-client";
+} from "@atomist/automation-client/lib/spi/message/MessageClient";
 import { InMemoryPreferenceStoreFactory } from "@atomist/sdm-core/lib/internal/preferences/InMemoryPreferenceStore";
 import { buildToPushLifecycle } from "@atomist/sdm-pack-lifecycle/lib/handlers/event/push/BuildToPushLifecycle";
 import { SlackMessage } from "@atomist/slack-messages";

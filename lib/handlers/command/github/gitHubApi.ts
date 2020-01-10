@@ -14,16 +14,16 @@
  * limitations under the License.
  */
 
+import { HandlerContext } from "@atomist/automation-client/lib/HandlerContext";
 import {
     failure,
-    HandlerContext,
     HandlerError,
     HandlerResult,
-    logger,
-    MessageOptions,
     Success,
-} from "@atomist/automation-client";
-import { slackErrorMessage } from "@atomist/sdm";
+} from "@atomist/automation-client/lib/HandlerResult";
+import { MessageOptions } from "@atomist/automation-client/lib/spi/message/MessageClient";
+import { logger } from "@atomist/automation-client/lib/util/logger";
+import { slackErrorMessage } from "@atomist/sdm/lib/api-helper/misc/slack/messages";
 import * as github from "@octokit/rest";
 
 // Install the throttling plugin

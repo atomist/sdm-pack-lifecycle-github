@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { TokenCredentials } from "@atomist/automation-client";
+import { TokenCredentials } from "@atomist/automation-client/lib/operations/common/ProjectOperationCredentials";
 import {
     PullRequestCommentCreator,
     PullRequestCommentUpdater,

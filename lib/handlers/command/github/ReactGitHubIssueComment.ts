@@ -15,18 +15,20 @@
  */
 
 import {
-    HandlerContext,
-    HandlerResult,
+    ConfigurableCommandHandler,
     MappedParameter,
     MappedParameters,
     Parameter,
     Secret,
     Secrets,
-    Success,
     Tags,
-} from "@atomist/automation-client";
-import { ConfigurableCommandHandler } from "@atomist/automation-client/lib/decorators";
+} from "@atomist/automation-client/lib/decorators";
 import { HandleCommand } from "@atomist/automation-client/lib/HandleCommand";
+import { HandlerContext } from "@atomist/automation-client/lib/HandlerContext";
+import {
+    HandlerResult,
+    Success,
+} from "@atomist/automation-client/lib/HandlerResult";
 import * as github from "./gitHubApi";
 
 @ConfigurableCommandHandler("React to a GitHub comment", {

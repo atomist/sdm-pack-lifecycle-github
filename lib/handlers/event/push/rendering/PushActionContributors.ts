@@ -14,13 +14,11 @@
  * limitations under the License.
  */
 
-import {
-    buttonForCommand,
-    logger,
-    QueryNoCacheOptions,
-    TokenCredentials,
-} from "@atomist/automation-client";
 import { ApolloGraphClient } from "@atomist/automation-client/lib/graph/ApolloGraphClient";
+import { TokenCredentials } from "@atomist/automation-client/lib/operations/common/ProjectOperationCredentials";
+import { QueryNoCacheOptions } from "@atomist/automation-client/lib/spi/graph/GraphClient";
+import { buttonForCommand } from "@atomist/automation-client/lib/spi/message/MessageClient";
+import { logger } from "@atomist/automation-client/lib/util/logger";
 import {
     AbstractIdentifiableContribution,
     GoalSet,

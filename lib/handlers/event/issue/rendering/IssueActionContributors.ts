@@ -14,15 +14,15 @@
  * limitations under the License.
  */
 
+import { ApolloGraphClient } from "@atomist/automation-client/lib/graph/ApolloGraphClient";
+import { guid } from "@atomist/automation-client/lib/internal/util/string";
+import { TokenCredentials } from "@atomist/automation-client/lib/operations/common/ProjectOperationCredentials";
 import {
     buttonForCommand,
-    guid,
-    logger,
     menuForCommand,
     MenuSpecification,
-    TokenCredentials,
-} from "@atomist/automation-client";
-import { ApolloGraphClient } from "@atomist/automation-client/lib/graph/ApolloGraphClient";
+} from "@atomist/automation-client/lib/spi/message/MessageClient";
+import { logger } from "@atomist/automation-client/lib/util/logger";
 import {
     AbstractIdentifiableContribution,
     graphql,

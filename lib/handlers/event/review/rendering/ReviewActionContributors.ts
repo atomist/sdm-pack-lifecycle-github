@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { buttonForCommand } from "@atomist/automation-client";
+import { buttonForCommand } from "@atomist/automation-client/lib/spi/message/MessageClient";
 import {
     AbstractIdentifiableContribution,
     graphql,

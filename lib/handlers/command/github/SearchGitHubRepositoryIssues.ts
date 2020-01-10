@@ -15,18 +15,18 @@
  */
 
 import {
-    buttonForCommand,
-    guid,
-    HandlerContext,
+    ConfigurableCommandHandler,
     MappedParameter,
     MappedParameters,
     Parameter,
     Secret,
     Secrets,
     Tags,
-} from "@atomist/automation-client";
-import { ConfigurableCommandHandler } from "@atomist/automation-client/lib/decorators";
+} from "@atomist/automation-client/lib/decorators";
 import { HandleCommand } from "@atomist/automation-client/lib/HandleCommand";
+import { HandlerContext } from "@atomist/automation-client/lib/HandlerContext";
+import { guid } from "@atomist/automation-client/lib/internal/util/string";
+import { buttonForCommand } from "@atomist/automation-client/lib/spi/message/MessageClient";
 import {
     Action,
     Attachment,
