@@ -25,7 +25,7 @@ export async function isSkillEnabled(context: HandlerContext, namespace: string,
 
     const skills = (await context.graphClient.query<ConfiguredSkillsQuery, ConfiguredSkillsQueryVariables>({
         name: "ConfiguredSkills",
-    })).skills;
+    }))?.skills;
 
     const skillInstance = skills?.configured?.skills?.find(s => s.namespace === namespace && s.name === name);
     if (!!skillInstance) {
