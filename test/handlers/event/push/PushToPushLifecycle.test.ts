@@ -23,8 +23,8 @@ import {
     MessageOptions,
     SlackDestination,
 } from "@atomist/automation-client/lib/spi/message/MessageClient";
-import { InMemoryPreferenceStoreFactory } from "@atomist/sdm-core/lib/internal/preferences/InMemoryPreferenceStore";
 import { pushToPushLifecycle } from "@atomist/sdm-pack-lifecycle/lib/handlers/event/push/PushToPushLifecycle";
+import { InMemoryPreferenceStoreFactory } from "@atomist/sdm/lib/core/preferences/InMemoryPreferenceStore";
 import { SlackMessage } from "@atomist/slack-messages";
 import "mocha";
 import * as assert from "power-assert";
