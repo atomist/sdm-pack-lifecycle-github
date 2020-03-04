@@ -58,16 +58,16 @@ import {
 @Tags("github", "issue")
 export class LinkRelatedGitHubIssue implements HandleCommand {
 
-    @Parameter({ description: "target owner name", pattern: /^.*$/ })
+    @Parameter({ description: "owner/org from which a related issue should be linked", pattern: /^.*$/ })
     public targetOwner: string;
 
-    @Parameter({ description: "target repository name", pattern: /^.*$/ })
+    @Parameter({ description: "repository from which a related issue should be linked", pattern: /^.*$/ })
     public targetRepo: string;
 
-    @Parameter({ description: "target issue number", pattern: /^.*$/ })
+    @Parameter({ description: "number of related issue that should be linked", pattern: /^.*$/ })
     public targetIssue: number;
 
-    @Parameter({ description: "issue number", pattern: /^.*$/ })
+    @Parameter({ description: "number of issue", pattern: /^.*$/ })
     public issue: number;
 
     @Parameter({ required: false, displayable: false })
