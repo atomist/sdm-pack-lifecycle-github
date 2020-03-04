@@ -95,11 +95,6 @@ fragment PushFields on Push {
       }
       timestamp
     }
-    fingerprints {
-      name
-      sha
-      data
-    }
   }
   repo {
     owner

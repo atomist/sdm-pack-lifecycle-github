@@ -32,6 +32,7 @@ import {
 import { isPrAutoMergeEnabled } from "@atomist/sdm-pack-lifecycle/lib/handlers/event/pullrequest/autoMerge";
 import { Action } from "@atomist/slack-messages";
 import * as _ from "lodash";
+import { isSkillEnabled } from "../../../../skills";
 import { AutoRebaseOnPushLabel } from "../../../command/github/AddGitHubPullRequestAutoLabels";
 import * as github from "../../../command/github/gitHubApi";
 import { DefaultGitHubApiUrl } from "../../../command/github/gitHubApi";
@@ -174,10 +175,15 @@ export class AutoMergeActionContributor extends AbstractIdentifiableContribution
         }
     }
 
-    public buttonsFor(pr: graphql.PullRequestToPullRequestLifecycle.PullRequest,
-                      context: RendererContext): Promise<Action[]> {
+    public async buttonsFor(pr: graphql.PullRequestToPullRequestLifecycle.PullRequest,
+                            context: RendererContext): Promise<Action[]> {
         const repo = context.lifecycle.extract("repo");
         const buttons = [];
+
+        const isAutoMergeEnabled = await isSkillEnabled(context.context, "atomist", "github-auto-merge-skill", pr.repo.id);
+        if (!isAutoMergeEnabled) {
+            return buttons;
+        }
 
         if (context.rendererId === "pull_request") {
             buttons.push(buttonForCommand(
@@ -191,7 +197,7 @@ export class AutoMergeActionContributor extends AbstractIdentifiableContribution
                 }));
         }
 
-        return Promise.resolve(buttons);
+        return buttons;
     }
 
     public menusFor(pr: graphql.PullRequestToPullRequestLifecycle.PullRequest,
@@ -218,10 +224,15 @@ export class AutoRebaseActionContributor extends AbstractIdentifiableContributio
         }
     }
 
-    public buttonsFor(pr: graphql.PullRequestToPullRequestLifecycle.PullRequest,
-                      context: RendererContext): Promise<Action[]> {
+    public async buttonsFor(pr: graphql.PullRequestToPullRequestLifecycle.PullRequest,
+                            context: RendererContext): Promise<Action[]> {
         const repo = context.lifecycle.extract("repo");
         const buttons = [];
+
+        const isAutoMergeEnabled = await isSkillEnabled(context.context, "atomist", "github-auto-rebase-skill", pr.repo.id);
+        if (!isAutoMergeEnabled) {
+            return buttons;
+        }
 
         if (context.rendererId === "pull_request") {
             buttons.push(buttonForCommand(
@@ -235,7 +246,7 @@ export class AutoRebaseActionContributor extends AbstractIdentifiableContributio
                 }));
         }
 
-        return Promise.resolve(buttons);
+        return buttons;
     }
 
     public menusFor(pr: graphql.PullRequestToPullRequestLifecycle.PullRequest,

@@ -1,0 +1,30 @@
+query ConfiguredSkills {
+    skills {
+        configured {
+            skills {
+                name
+                namespace
+                version
+                configuration {
+                    instances {
+                        enabled
+                        parameters {
+                            __typename
+                            name
+                            ... on AtomistSkillRepoFilterParameterValue {
+                                value {
+                                    excludes {
+                                        repoIds
+                                    }
+                                    includes {
+                                        repoIds
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
