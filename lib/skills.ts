@@ -35,7 +35,11 @@ export async function isSkillEnabled(context: HandlerContext, namespace: string,
             if (!!repoFilter) {
                 const excludes = repoFilter.value?.excludes || [];
                 const includes = repoFilter.value?.includes || [];
-                if (includes.some(i => i.repoIds.includes(repoId)) && !excludes.some(e => e.repoIds.includes(repoId))) {
+                if (includes.length === 0 && excludes.length === 0) {
+                    return true;
+                } else if (includes.some(i => i.repoIds.includes(repoId))) {
+                    return true;
+                } else if (!excludes.some(i => i.repoIds.includes(repoId))) {
                     return true;
                 }
             } else {
