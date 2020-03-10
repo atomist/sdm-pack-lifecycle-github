@@ -100,7 +100,7 @@ export class ReleaseActionContributor extends AbstractIdentifiableContribution
     private createReleaseButton(push: graphql.PushToPushLifecycle.Push,
                                 tag: graphql.PushFields.Tags,
                                 repo: graphql.PushFields.Repo): Action {
-        let commitMessage = "Release created by Atomist Lifecycle Automation";
+        let commitMessage = "Release created by Atomist GitHub Notifications Skill";
 
         // We do not have a tag message in our model so let's fallback onto
         // commits by locating the commit for that particular tag
@@ -169,7 +169,7 @@ export class TagPushActionContributor extends AbstractIdentifiableContribution
 
         // Add the create tag button
         const tagHandler = new CreateGitHubTag();
-        tagHandler.message = push.after.message || "Tag created by Atomist Lifecycle Automation";
+        tagHandler.message = push.after.message || "Tag created by Atomist GitHub Notifications Skill";
         tagHandler.sha = push.after.sha;
         tagHandler.repo = repo.name;
         tagHandler.owner = repo.owner;
@@ -270,7 +270,7 @@ export class TagTagActionContributor extends AbstractIdentifiableContribution
 
                             const tagHandler = new CreateGitHubTag();
                             tagHandler.tag = version;
-                            tagHandler.message = push.after.message || "Tag created by Atomist Lifecycle Automation";
+                            tagHandler.message = push.after.message || "Tag created by Atomist GitHub Notifications Skill";
                             tagHandler.sha = push.after.sha;
                             tagHandler.repo = repo.name;
                             tagHandler.owner = repo.owner;
