@@ -1,5 +1,5 @@
 /*
- * Copyright © 2019 Atomist, Inc.
+ * Copyright © 2020 Atomist, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,26 +15,22 @@
  */
 
 import {
-    failure,
-    HandlerContext,
-    HandlerResult,
+    CommandHandler,
+    ConfigurableCommandHandler,
     MappedParameter,
     MappedParameters,
     Parameter,
     Secret,
     Secrets,
-    Success,
     Tags,
-} from "@atomist/automation-client";
-import {
-    CommandHandler,
-    ConfigurableCommandHandler,
 } from "@atomist/automation-client/lib/decorators";
 import { HandleCommand } from "@atomist/automation-client/lib/HandleCommand";
+import { HandlerContext } from "@atomist/automation-client/lib/HandlerContext";
 import {
-    slackErrorMessage,
-    slackSuccessMessage,
-} from "@atomist/sdm";
+    failure,
+    HandlerResult,
+    Success,
+} from "@atomist/automation-client/lib/HandlerResult";
 import {
     graphql,
     loadChatIdByChatId,
@@ -43,6 +39,10 @@ import {
 import { DefaultBotName } from "@atomist/sdm-pack-lifecycle/lib/handlers/command/slack/LinkRepo";
 import { sendUnMappedRepoMessage } from "@atomist/sdm-pack-lifecycle/lib/handlers/event/push/PushToUnmappedRepo";
 import { warning } from "@atomist/sdm-pack-lifecycle/lib/util/messages";
+import {
+    slackErrorMessage,
+    slackSuccessMessage,
+} from "@atomist/sdm/lib/api-helper/misc/slack/messages";
 import {
     codeLine,
     SlackMessage,
@@ -196,7 +196,7 @@ export class InstallGitHubRepoWebhook implements HandleCommand {
                                                 channels: results[1].channels,
                                             }],
                                         },
-                                        provider: {},
+                                        provider: {} as any,
                                     },
                                 };
                                 const botNames: any = {};

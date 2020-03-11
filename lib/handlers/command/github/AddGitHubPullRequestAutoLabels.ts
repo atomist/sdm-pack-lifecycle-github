@@ -1,5 +1,5 @@
 /*
- * Copyright © 2019 Atomist, Inc.
+ * Copyright © 2020 Atomist, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,24 +15,26 @@
  */
 
 import {
-    HandlerContext,
-    HandlerResult,
+    ConfigurableCommandHandler,
     MappedParameter,
     MappedParameters,
     Secret,
     Secrets,
-    Success,
     Tags,
-} from "@atomist/automation-client";
-import { ConfigurableCommandHandler } from "@atomist/automation-client/lib/decorators";
+} from "@atomist/automation-client/lib/decorators";
 import { HandleCommand } from "@atomist/automation-client/lib/HandleCommand";
-import { slackSuccessMessage } from "@atomist/sdm";
+import { HandlerContext } from "@atomist/automation-client/lib/HandlerContext";
+import {
+    HandlerResult,
+    Success,
+} from "@atomist/automation-client/lib/HandlerResult";
 import {
     AutoMergeCheckSuccessLabel,
     AutoMergeLabel,
     AutoMergeMethodLabel,
     AutoMergeMethods,
 } from "@atomist/sdm-pack-lifecycle/lib/handlers/event/pullrequest/autoMerge";
+import { slackSuccessMessage } from "@atomist/sdm/lib/api-helper/misc/slack/messages";
 import { bold } from "@atomist/slack-messages";
 import * as Github from "@octokit/rest";
 import * as github from "./gitHubApi";

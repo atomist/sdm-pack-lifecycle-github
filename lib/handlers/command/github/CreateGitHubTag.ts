@@ -1,5 +1,5 @@
 /*
- * Copyright © 2019 Atomist, Inc.
+ * Copyright © 2020 Atomist, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,24 +15,26 @@
  */
 
 import {
-    buttonForCommand,
-    failure,
-    guid,
-    HandlerContext,
-    HandlerResult,
+    ConfigurableCommandHandler,
     MappedParameter,
     MappedParameters,
     Parameter,
     Parameters,
     Secret,
     Secrets,
-    Success,
     Tags,
-} from "@atomist/automation-client";
-import { ConfigurableCommandHandler } from "@atomist/automation-client/lib/decorators";
+} from "@atomist/automation-client/lib/decorators";
 import { HandleCommand } from "@atomist/automation-client/lib/HandleCommand";
+import { HandlerContext } from "@atomist/automation-client/lib/HandlerContext";
+import {
+    failure,
+    HandlerResult,
+    Success,
+} from "@atomist/automation-client/lib/HandlerResult";
+import { guid } from "@atomist/automation-client/lib/internal/util/string";
 import { commandHandlerFrom } from "@atomist/automation-client/lib/onCommand";
-import { slackSuccessMessage } from "@atomist/sdm";
+import { buttonForCommand } from "@atomist/automation-client/lib/spi/message/MessageClient";
+import { slackSuccessMessage } from "@atomist/sdm/lib/api-helper/misc/slack/messages";
 import {
     bold,
     codeLine,
@@ -131,7 +133,7 @@ export class CreateGitHubTag implements HandleCommand {
                     owner: this.owner,
                     repo: this.repo,
                     tag: this.tag,
-                    message: this.message || "Tag created by Atomist Lifecycle Automation",
+                    message: this.message || "Tag created by Atomist GitHub Notifications Skill",
                     object: this.sha,
                     type: "commit",
                     tagger,

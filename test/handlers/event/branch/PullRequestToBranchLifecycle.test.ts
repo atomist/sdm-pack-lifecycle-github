@@ -1,5 +1,5 @@
 /*
- * Copyright © 2019 Atomist, Inc.
+ * Copyright © 2020 Atomist, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
+import { EventFired } from "@atomist/automation-client/lib/HandleEvent";
+import { HandlerContext } from "@atomist/automation-client/lib/HandlerContext";
 import {
     Destination,
-    EventFired,
-    HandlerContext,
     MessageOptions,
     RequiredMessageOptions,
     SlackDestination,
-} from "@atomist/automation-client";
+} from "@atomist/automation-client/lib/spi/message/MessageClient";
 import { MessageClientSupport } from "@atomist/automation-client/lib/spi/message/MessageClientSupport";
 import { pullRequestToBranchLifecycle } from "@atomist/sdm-pack-lifecycle/lib/handlers/event/branch/PullRequestToBranchLifecycle";
 import { SlackMessage } from "@atomist/slack-messages";

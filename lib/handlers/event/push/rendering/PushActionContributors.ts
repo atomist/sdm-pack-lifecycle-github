@@ -1,5 +1,5 @@
 /*
- * Copyright © 2019 Atomist, Inc.
+ * Copyright © 2020 Atomist, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,13 +14,11 @@
  * limitations under the License.
  */
 
-import {
-    buttonForCommand,
-    logger,
-    QueryNoCacheOptions,
-    TokenCredentials,
-} from "@atomist/automation-client";
 import { ApolloGraphClient } from "@atomist/automation-client/lib/graph/ApolloGraphClient";
+import { TokenCredentials } from "@atomist/automation-client/lib/operations/common/ProjectOperationCredentials";
+import { QueryNoCacheOptions } from "@atomist/automation-client/lib/spi/graph/GraphClient";
+import { buttonForCommand } from "@atomist/automation-client/lib/spi/message/MessageClient";
+import { logger } from "@atomist/automation-client/lib/util/logger";
 import {
     AbstractIdentifiableContribution,
     GoalSet,
@@ -102,7 +100,7 @@ export class ReleaseActionContributor extends AbstractIdentifiableContribution
     private createReleaseButton(push: graphql.PushToPushLifecycle.Push,
                                 tag: graphql.PushFields.Tags,
                                 repo: graphql.PushFields.Repo): Action {
-        let commitMessage = "Release created by Atomist Lifecycle Automation";
+        let commitMessage = "Release created by Atomist GitHub Notifications Skill";
 
         // We do not have a tag message in our model so let's fallback onto
         // commits by locating the commit for that particular tag
@@ -171,7 +169,7 @@ export class TagPushActionContributor extends AbstractIdentifiableContribution
 
         // Add the create tag button
         const tagHandler = new CreateGitHubTag();
-        tagHandler.message = push.after.message || "Tag created by Atomist Lifecycle Automation";
+        tagHandler.message = push.after.message || "Tag created by Atomist GitHub Notifications Skill";
         tagHandler.sha = push.after.sha;
         tagHandler.repo = repo.name;
         tagHandler.owner = repo.owner;
@@ -272,7 +270,7 @@ export class TagTagActionContributor extends AbstractIdentifiableContribution
 
                             const tagHandler = new CreateGitHubTag();
                             tagHandler.tag = version;
-                            tagHandler.message = push.after.message || "Tag created by Atomist Lifecycle Automation";
+                            tagHandler.message = push.after.message || "Tag created by Atomist GitHub Notifications Skill";
                             tagHandler.sha = push.after.sha;
                             tagHandler.repo = repo.name;
                             tagHandler.owner = repo.owner;

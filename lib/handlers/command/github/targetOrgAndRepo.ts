@@ -1,5 +1,5 @@
 /*
- * Copyright © 2019 Atomist, Inc.
+ * Copyright © 2020 Atomist, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,16 +15,18 @@
  */
 
 import {
-    buttonForCommand,
-    guid,
-    HandlerContext,
     MappedParameter,
     MappedParameters,
-    menuForCommand,
     Parameter,
     Parameters,
-    Success,
-} from "@atomist/automation-client";
+} from "@atomist/automation-client/lib/decorators";
+import { HandlerContext } from "@atomist/automation-client/lib/HandlerContext";
+import { Success } from "@atomist/automation-client/lib/HandlerResult";
+import { guid } from "@atomist/automation-client/lib/internal/util/string";
+import {
+    buttonForCommand,
+    menuForCommand,
+} from "@atomist/automation-client/lib/spi/message/MessageClient";
 import {
     avatarUrl,
     issueUrl,

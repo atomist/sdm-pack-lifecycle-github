@@ -1,5 +1,5 @@
 /*
- * Copyright © 2019 Atomist, Inc.
+ * Copyright © 2020 Atomist, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
+import { ApolloGraphClient } from "@atomist/automation-client/lib/graph/ApolloGraphClient";
+import { TokenCredentials } from "@atomist/automation-client/lib/operations/common/ProjectOperationCredentials";
 import {
     buttonForCommand,
     menuForCommand,
     MenuSpecification,
-    TokenCredentials,
-} from "@atomist/automation-client";
-import { ApolloGraphClient } from "@atomist/automation-client/lib/graph/ApolloGraphClient";
+} from "@atomist/automation-client/lib/spi/message/MessageClient";
 import {
     AbstractIdentifiableContribution,
     graphql,
@@ -32,6 +32,7 @@ import {
 import { isPrAutoMergeEnabled } from "@atomist/sdm-pack-lifecycle/lib/handlers/event/pullrequest/autoMerge";
 import { Action } from "@atomist/slack-messages";
 import * as _ from "lodash";
+import { isSkillEnabled } from "../../../../skills";
 import { AutoRebaseOnPushLabel } from "../../../command/github/AddGitHubPullRequestAutoLabels";
 import * as github from "../../../command/github/gitHubApi";
 import { DefaultGitHubApiUrl } from "../../../command/github/gitHubApi";
@@ -174,10 +175,15 @@ export class AutoMergeActionContributor extends AbstractIdentifiableContribution
         }
     }
 
-    public buttonsFor(pr: graphql.PullRequestToPullRequestLifecycle.PullRequest,
-                      context: RendererContext): Promise<Action[]> {
+    public async buttonsFor(pr: graphql.PullRequestToPullRequestLifecycle.PullRequest,
+                            context: RendererContext): Promise<Action[]> {
         const repo = context.lifecycle.extract("repo");
         const buttons = [];
+
+        const isAutoMergeEnabled = await isSkillEnabled(context.context, "atomist", "github-auto-merge-skill", pr.repo.id);
+        if (!isAutoMergeEnabled) {
+            return buttons;
+        }
 
         if (context.rendererId === "pull_request") {
             buttons.push(buttonForCommand(
@@ -191,7 +197,7 @@ export class AutoMergeActionContributor extends AbstractIdentifiableContribution
                 }));
         }
 
-        return Promise.resolve(buttons);
+        return buttons;
     }
 
     public menusFor(pr: graphql.PullRequestToPullRequestLifecycle.PullRequest,
@@ -218,10 +224,15 @@ export class AutoRebaseActionContributor extends AbstractIdentifiableContributio
         }
     }
 
-    public buttonsFor(pr: graphql.PullRequestToPullRequestLifecycle.PullRequest,
-                      context: RendererContext): Promise<Action[]> {
+    public async buttonsFor(pr: graphql.PullRequestToPullRequestLifecycle.PullRequest,
+                            context: RendererContext): Promise<Action[]> {
         const repo = context.lifecycle.extract("repo");
         const buttons = [];
+
+        const isAutoMergeEnabled = await isSkillEnabled(context.context, "atomist", "github-auto-rebase-skill", pr.repo.id);
+        if (!isAutoMergeEnabled) {
+            return buttons;
+        }
 
         if (context.rendererId === "pull_request") {
             buttons.push(buttonForCommand(
@@ -235,7 +246,7 @@ export class AutoRebaseActionContributor extends AbstractIdentifiableContributio
                 }));
         }
 
-        return Promise.resolve(buttons);
+        return buttons;
     }
 
     public menusFor(pr: graphql.PullRequestToPullRequestLifecycle.PullRequest,

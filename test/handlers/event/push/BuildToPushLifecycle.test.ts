@@ -1,5 +1,5 @@
 /*
- * Copyright © 2019 Atomist, Inc.
+ * Copyright © 2020 Atomist, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,16 +14,16 @@
  * limitations under the License.
  */
 
+import { EventFired } from "@atomist/automation-client/lib/HandleEvent";
+import { Success } from "@atomist/automation-client/lib/HandlerResult";
+import { guid } from "@atomist/automation-client/lib/internal/util/string";
 import {
     Destination,
-    EventFired,
-    guid,
     MessageOptions,
     SlackDestination,
-    Success,
-} from "@atomist/automation-client";
-import { InMemoryPreferenceStoreFactory } from "@atomist/sdm-core/lib/internal/preferences/InMemoryPreferenceStore";
+} from "@atomist/automation-client/lib/spi/message/MessageClient";
 import { buildToPushLifecycle } from "@atomist/sdm-pack-lifecycle/lib/handlers/event/push/BuildToPushLifecycle";
+import { InMemoryPreferenceStoreFactory } from "@atomist/sdm/lib/core/preferences/InMemoryPreferenceStore";
 import { SlackMessage } from "@atomist/slack-messages";
 import "mocha";
 import * as assert from "power-assert";
