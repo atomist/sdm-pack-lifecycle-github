@@ -371,7 +371,7 @@ export class PullRequestActionContributor extends AbstractIdentifiableContributi
                                 role: "global",
                             },
                             "RaiseGitHubPullRequest", {
-                                org: repo.owner,
+                                owner: repo.owner,
                                 repo: repo.name,
                                 title: msg[0],
                                 body,
