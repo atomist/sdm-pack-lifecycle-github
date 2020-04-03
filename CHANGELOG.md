@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Fixed
 
 -   Add missing branch graphql file. [e9af8d1](https://github.com/atomist/sdm-pack-lifecycle-github/commit/e9af8d1b9d4037fd2e5bfb0e69bb08a02502d05f)
+-   Fix owner parameter on RaiseGitHubPullRequest. [e9ad973](https://github.com/atomist/sdm-pack-lifecycle-github/commit/e9ad973fb7edf08c8bdd4eb7e0447057d0f9ee0b)
 
 ## [0.1.0](https://github.com/atomist/sdm-pack-lifecycle-github/tree/0.1.0) - 2019-05-21
 
