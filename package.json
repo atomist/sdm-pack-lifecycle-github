@@ -36,7 +36,7 @@
   "peerDependencies": {
     "@atomist/automation-client": "2.0.0-master.20200311165330",
     "@atomist/sdm": "2.0.0-master.20200311172920",
-    "@atomist/sdm-pack-lifecycle": "0.3.0-master.20200311174235",
+    "@atomist/sdm-pack-lifecycle": "0.4.0-master.20200515103725",
     "@atomist/slack-messages": "^1.1.1"
   },
   "devDependencies": {
