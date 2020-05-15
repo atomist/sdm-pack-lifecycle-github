@@ -1,6 +1,6 @@
 {
   "name": "@atomist/sdm-pack-lifecycle-github",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "Extension pack adding GitHub lifecycle support to an SDM",
   "author": {
     "name": "Atomist",
