@@ -76,7 +76,7 @@ export class MergeActionContributor extends AbstractIdentifiableContribution
         if (context.rendererId === "status") {
             const mergeButtons = this.mergePRActions(pr, repo);
 
-            const commits = pr.commits.filter(c => !!c.statuses && c.statuses.length > 0)
+            const commits = pr.commits.filter(c => c.statuses?.length > 0 || c.checkSuites?.length > 0)
                 .sort((c1, c2) => (c2.timestamp || "0").localeCompare(c1.timestamp));
             if (commits.length > 0) {
                 const checks = aggregateStatusesAndChecks(commits[0]);
