@@ -30,6 +30,8 @@ import {
     SlackActionContributor,
 } from "@atomist/sdm-pack-lifecycle";
 import { isPrAutoMergeEnabled } from "@atomist/sdm-pack-lifecycle/lib/handlers/event/pullrequest/autoMerge";
+import { aggregateStatusesAndChecks } from "@atomist/sdm-pack-lifecycle/lib/handlers/event/push/rendering/StatusesNodeRenderer";
+import { StatusState } from "@atomist/sdm-pack-lifecycle/lib/typings/types";
 import { Action } from "@atomist/slack-messages";
 import * as _ from "lodash";
 import { isSkillEnabled } from "../../../../skills";
@@ -77,8 +79,8 @@ export class MergeActionContributor extends AbstractIdentifiableContribution
             const commits = pr.commits.filter(c => !!c.statuses && c.statuses.length > 0)
                 .sort((c1, c2) => (c2.timestamp || "0").localeCompare(c1.timestamp));
             if (commits.length > 0) {
-                const commit = commits[0];
-                if (!commit.statuses.some(s => s.state !== "success")) {
+                const checks = aggregateStatusesAndChecks(commits[0]);
+                if (!checks.some(s => s.state !== StatusState.success)) {
                     buttons.push(...mergeButtons);
                 }
             } else {

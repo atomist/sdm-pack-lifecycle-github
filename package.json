@@ -36,13 +36,13 @@
   "peerDependencies": {
     "@atomist/automation-client": "2.0.0-master.20200311165330",
     "@atomist/sdm": "2.0.0-master.20200311172920",
-    "@atomist/sdm-pack-lifecycle": "0.4.0-master.20200515103725",
+    "@atomist/sdm-pack-lifecycle": "0.4.0-master.20200515123642",
     "@atomist/slack-messages": "^1.1.1"
   },
   "devDependencies": {
     "@atomist/automation-client": "2.0.0-master.20200311165330",
     "@atomist/sdm": "2.0.0-master.20200311172920",
-    "@atomist/sdm-pack-lifecycle": "0.3.0-master.20200505162036",
+    "@atomist/sdm-pack-lifecycle": "0.4.0-master.20200515123642",
     "@atomist/slack-messages": "^1.1.1",
     "@types/mocha": "^5.2.7",
     "@types/power-assert": "^1.5.0",
