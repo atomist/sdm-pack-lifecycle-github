@@ -63,6 +63,9 @@ export class DisplayGitHubPullRequest implements HandleCommand {
     @MappedParameter(MappedParameters.SlackChannelName)
     public channelName: string;
 
+    @MappedParameter(MappedParameters.SlackTeam)
+    public teamId: string;
+
     @Secret(Secrets.userToken("repo"))
     public githubToken: string;
 
@@ -70,7 +73,7 @@ export class DisplayGitHubPullRequest implements HandleCommand {
         return ctx.graphClient.query<graphql.PullRequest.Query, graphql.PullRequest.Variables>({
             name: "pullRequest",
             variables: {
-                teamId: ctx.workspaceId,
+                teamId: this.teamId,
                 repoName: this.repo,
                 prName: this.issue,
                 orgOwner: this.owner,
