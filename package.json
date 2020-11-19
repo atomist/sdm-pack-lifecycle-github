@@ -26,8 +26,8 @@
   "main": "./index.js",
   "types": "./index.d.ts",
   "dependencies": {
-    "@octokit/plugin-throttling": "^2.6.0",
-    "@octokit/rest": "^16.29.0",
+    "@octokit/plugin-throttling": "2.6.0",
+    "@octokit/rest": "16.29.0",
     "deepmerge": "^4.0.0",
     "format-date": "^1.0.0",
     "lodash": "^4.17.15",
