@@ -151,7 +151,7 @@ describe("BuildToPushLifecycle", () => {
             invocationId: guid(),
             graphClient: {
                 query(): Promise<any> {
-                    return Promise.resolve();
+                    return Promise.resolve({ LifecycleAttachment: [] });
                 },
             },
             messageClient: new MockMessageClient(),
