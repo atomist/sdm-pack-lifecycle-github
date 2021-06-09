@@ -1,6 +1,6 @@
 {
   "name": "@atomist/sdm-pack-lifecycle-github",
-  "version": "0.4.0",
+  "version": "0.6.0",
   "description": "Extension pack adding GitHub lifecycle support to an SDM",
   "author": {
     "name": "Atomist",
@@ -34,16 +34,14 @@
     "semver": "^6.3.0"
   },
   "peerDependencies": {
-    "@atomist/automation-client": "^2.0.0",
-    "@atomist/sdm": "^2.0.0",
-    "@atomist/sdm-pack-lifecycle": "0.4.0-master.20201119173326",
-    "@atomist/slack-messages": "^1.1.1"
+    "@atomist/sdm": "^2.1.6",
+    "@atomist/sdm-pack-lifecycle": "0.6.0-master.0",
+    "@atomist/slack-messages": "^1.2.2"
   },
   "devDependencies": {
-    "@atomist/automation-client": "^2.0.0",
-    "@atomist/sdm": "^2.0.0",
-    "@atomist/sdm-pack-lifecycle": "0.4.0-master.20201119173326",
-    "@atomist/slack-messages": "^1.1.1",
+    "@atomist/sdm": "^2.1.6",
+    "@atomist/sdm-pack-lifecycle": "0.6.0-master.0",
+    "@atomist/slack-messages": "^1.2.2",
     "@types/mocha": "^5.2.7",
     "@types/power-assert": "^1.5.0",
     "espower-typescript": "^9.0.2",
